@@ -4,7 +4,10 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 
 class CreateThreadsTest extends TestCase
 {
@@ -13,20 +16,34 @@ class CreateThreadsTest extends TestCase
      *
      * @return void
      */
-    public function testExample()
+
+     use DatabaseMigrations;
+
+
+     /** @test */
+    public function auth_user_can_create_thread()
     {
-        $this->assertTrue(true);
+    	 
+        // $this->actingAs(factory('App\User')->create());
+            //helper funcion creating and sign in user
+        $this->signIn();
+        // $thread = factory('App\Thread')->make();
+        $thread = make('App\Thread'); 
+     	$this->post('/threads/', $thread->toArray());
+
+        $this->get($thread->path())
+            ->assertSee($thread->title)
+            ->assertSee($thread->body);
     }
 
-
-    public function auth_user_can_create_thread($value='')
+      /** @test */
+    public function unauth_user_can_not_create_thread()
     {
-    	// $user = factory('App\User')->create(); 
-     //    auth()->login($user);
+         
+        $this->expectException('Illuminate\Auth\AuthenticationException');
 
-        $this->actingAs(factory('App\User')->create());
-
-        $thread = factory('App\Thread')->create(); 
-     	$this->post('/threads/'.$thread->id .'/replies', $thread->toArray());
+        $thread = factory('App\Thread')->make(); 
+        $this->post('/threads/', $thread->toArray());
+ 
     }
 }

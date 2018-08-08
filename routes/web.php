@@ -15,12 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/threads', 'ThreadController@index');
-Route::get('/threads/{thread}', 'ThreadController@show');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/threads/{thread}/replies', 'ReplyController@store');
+
+// Route::get('/threads', 'ThreadController@index');
+// Route::get('/threads/create', 'ThreadController@create');
+// Route::post('/threads', 'ThreadController@store');
+// Route::get('/threads/{thread}', 'ThreadController@show');
+
+Route::resource('threads', 'ThreadController');
+
+Route::post('/threads/{thread}/replies', 'ReplyController@store'); // save reply
+
+
+
