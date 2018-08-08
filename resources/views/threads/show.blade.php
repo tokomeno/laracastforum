@@ -11,6 +11,7 @@
                    {{-- @foreach ($threads as $thread) --}}
 
                    	<article>
+                      <a href="#">{{$thread->creator->name}}</a>
                    		<h4> {{$thread->title}} </h4>
 
                    		<div class="body"> {{$thread->body}} </div>
@@ -26,19 +27,27 @@
      <div class="row justify-content-center">
         <div class="col-md-8">
           @foreach ($thread->replies as $reply)
-            <div class="card mt-3"> 
-              <div class="card-header">
-                 {{ $reply->owner->name}} said
-                {{$reply->created_at->diffForHumans()}} ago
-              </div>
-                <div class="card-body">
-                    
-                  {{$reply->body}}
-                  
-                </div>
-            </div>
+            @include('inc.reply')
             @endforeach
         </div>
     </div>
+
+
+     <div class="row justify-content-center mt-3">
+        <div class="col-md-8">
+    <form action="{{ $thread->path() }}/replies" method="POST">
+      {{csrf_field()}}
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Text</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='body'></textarea>
+      </div>
+
+      <button class="btn">Submit</button>
+ 
+    </form>
+  </div>
+</div>
+
+
 </div>
 @endsection

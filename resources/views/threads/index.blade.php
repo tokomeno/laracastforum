@@ -9,13 +9,14 @@
 
               
                    @foreach ($threads as $thread)
-  <div class="card-body">
+                   <hr>
+                 <div class="card-body mt-3">
                    	<article>
-                   		<h4> {{$thread->title}} </h4>
+                   		<h4> <a href="{{$thread->path()}}">{{$thread->title}}</a> </h4>
 
                    		<div class="body"> {{$thread->body}} </div>
                    	</article>
-</div>
+                  </div>
                    @endforeach
                 
             </div>
