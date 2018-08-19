@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ParticipateForumTest extends TestCase
-{ 
+{
 
  use DatabaseMigrations;
     /**
@@ -23,15 +23,15 @@ class ParticipateForumTest extends TestCase
     public function auth_user_can_participate_in_forum()
     {
         // $this->assertTrue(true);
-        $user = factory('App\User')->create(); 
+        $user = factory('App\User')->create();
         auth()->login($user);
         $thread = factory('App\Thread')->create();
 
-        $reply = factory('App\Reply')->create(); 
-     	$this->post('/threads/'.$thread->id .'/replies', $reply->toArray());
+        $reply = factory('App\Reply')->create();
+     	$this->post($thread->path() .'/replies', $reply->toArray());
 
      	$this->get($thread->path())
      		->assertSee($reply->body);
- 
+
     }
 }

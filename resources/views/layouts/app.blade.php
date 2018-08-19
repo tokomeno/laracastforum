@@ -37,6 +37,35 @@
                          <li class="nav-item">
                                 <a class="nav-link" href="/threads">All Threads</a>
                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="/threads?popular=1">Popular</a>
+                            </li>
+
+
+                        @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads?by={{auth()->user()->name }}">My Thread</a>
+                        </li>
+                        @endauth
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/threads/create">Add Thread</a>
+                        </li>
+
+
+                         <li class="nav-item dropdown">
+                                <a id="channelsDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                     Cannels <span class="caret"></span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="channelsDropdown">
+                                    @foreach ($channels as $ch)
+                                        <a class="dropdown-item" href="{{ $ch->slug }}">
+                                            {{$ch->name}}
+                                        </a>
+                                    @endforeach
+
+                                </div>
+                            </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

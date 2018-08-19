@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Channel;
+
+use App\Filters\ThreadFilters;
+
 use App\Thread;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
-{   
+{
 
     public function __construct()
     {
@@ -17,9 +21,23 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($channel = null, ThreadFilters $filters)
     {
-        $threads = Thread::latest()->get();
+
+        if($channel){
+        $channelId = Channel::where('slug', $channel)->firstOrFail()->id;
+            $threads = Thread::where('channel_id', $channelId)
+                ->latest();
+        }else{
+          $threads = Thread::latest();
+        }
+        $threads = $threads->filter($filters)->get();
+
+
+        if(request()->wantsJson()){
+            return $threads;
+        }
+
         return view('threads.index', compact('threads'));
     }
 
@@ -41,8 +59,15 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+       $this->validate($request, [
+           'title' => 'required',
+            'body' => 'required',
+            'channel_id' => 'required|exists:channels,id',
+       ]);
+
         $thread = Thread::create([
             'user_id' => auth()->id(),
+            'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body')
         ]);
@@ -56,10 +81,10 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($channel, Thread $thread)
     {
-
-        return view('threads.show', compact('thread'));
+        $replies = $thread->replies()->paginate(10);
+        return view('threads.show', compact('thread', 'replies'));
     }
 
     /**
@@ -95,4 +120,22 @@ class ThreadController extends Controller
     {
         //
     }
+
+
+    // protected function getThreads($channel)
+    // {
+    //     if($channel){
+    //     $channelId = Channel::where('slug', $channel)->firstOrFail()->id;
+    //         $threads = Thread::where('channel_id', $channelId)
+    //             ->latest();
+    //     }else{
+    //       $threads = Thread::latest();
+    //     }
+    //     if($username = request('by')){
+    //         $user = \App\User::where('name', $username)->firstOrFail();
+    //         $threads->where('user_id', $user->id);
+    //     }
+
+    //    return $threads->get();
+    // }
 }

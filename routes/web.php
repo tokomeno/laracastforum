@@ -25,9 +25,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::post('/threads', 'ThreadController@store');
 // Route::get('/threads/{thread}', 'ThreadController@show');
 
-Route::resource('threads', 'ThreadController');
 
-Route::post('/threads/{thread}/replies', 'ReplyController@store'); // save reply
+Route::resource('threads', 'ThreadController')
+->except('show');
+
+Route::get('/threads/{channel}', 'ThreadController@index');
+Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
+
+Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store'); // save reply
+Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
 
 
 
