@@ -33,7 +33,9 @@ Route::get('/threads/{channel}', 'ThreadController@index');
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
 
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store'); // save reply
-Route::post('/replies/{reply}/favorites', 'FavoritesController@store');
+
+// store favorites
+Route::post('/replies/{reply}/favorites', 'FavoriteController@store');
 
 
 

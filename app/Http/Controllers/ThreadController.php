@@ -31,7 +31,7 @@ class ThreadController extends Controller
         }else{
           $threads = Thread::latest();
         }
-        $threads = $threads->filter($filters)->get();
+        $threads = $threads->with('channel')->filter($filters)->get();
 
 
         if(request()->wantsJson()){
