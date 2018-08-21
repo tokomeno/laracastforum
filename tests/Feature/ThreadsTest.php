@@ -38,6 +38,20 @@ class ThreadsTest extends TestCase
     }
 
     /** @test */
+    public function user_can_delete_thread()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread');
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+        $this->json('DELETE', $thread->path());
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
+    }
+
+    /** @test */
     public function a_user_can_read_a_single_thread()
     {
 

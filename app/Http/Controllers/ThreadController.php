@@ -31,7 +31,7 @@ class ThreadController extends Controller
         }else{
           $threads = Thread::latest();
         }
-        $threads = $threads->with('channel')->filter($filters)->get();
+        $threads = $threads->filter($filters)->get();
 
 
         if(request()->wantsJson()){
@@ -116,9 +116,14 @@ class ThreadController extends Controller
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Thread $thread)
-    {
-        //
+    public function destroy($channel, Thread $thread)
+    {   
+        // $thread->replies()->delete();
+        $thread->delete();
+
+        // return response([], 200);
+
+        return redirect('threads');
     }
 
 

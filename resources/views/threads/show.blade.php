@@ -16,7 +16,12 @@
 
                    		<div class="body"> {{$thread->body}} </div>
                    	</article>
-
+                  <form action="{{$thread->path()}}" method="post">
+                      {{csrf_field()}}
+                      {{method_field('delete')}}
+                      <button class="btn btn-danger">Deltee</button>
+                  </form>
+                  
                    {{-- @endforeach --}}
                 </div>
             </div>

@@ -27,15 +27,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('threads', 'ThreadController')
-->except('show');
+->except('show', 'destroy');
 
 Route::get('/threads/{channel}', 'ThreadController@index');
+
+Route::delete('/threads/{channel}/{thread}', 'ThreadController@destroy');
+
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');
 
 Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store'); // save reply
 
 // store favorites
 Route::post('/replies/{reply}/favorites', 'FavoriteController@store');
+
+ 
+Route::get('/profiles/{user}', 'ProfileController@show');
 
 
 
