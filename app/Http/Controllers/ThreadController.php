@@ -14,7 +14,7 @@ class ThreadController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only('store', 'create');;
+        $this->middleware('auth')->only('store', 'create', 'destroy');
     }
     /**
      * Display a listing of the resource.
@@ -113,16 +113,19 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Thread  $thread
-     * @return \Illuminate\Http\Response
+     * we are deltinf replise in thread model
+     *
      */
     public function destroy($channel, Thread $thread)
-    {   
+    {
+        // if($thread->user_id != auth()->id() ){
+        //     return response(['status' =>'Perremission denide'], 403);
+        // }
+
+        $this->authorize('update', $thread);
         // $thread->replies()->delete();
         $thread->delete();
-
         // return response([], 200);
-
         return redirect('threads');
     }
 

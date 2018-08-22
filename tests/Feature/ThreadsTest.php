@@ -38,11 +38,37 @@ class ThreadsTest extends TestCase
     }
 
     /** @test */
-    public function user_can_delete_thread()
+    public function un_authoraize_user_cant_delete_threads()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+
+        $thread = factory('App\Thread')->create();
+
+        $res = $this->delete($thread->path());
+
+        $this->signIn();
+        $this->delete($thread->path());
+    }
+
+
+    /** @test */
+    public function un_authoraize_diff_user_cant_delete_threads()
+    {
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+
+        $thread = factory('App\Thread')->create();
+        $this->signIn();
+        $res = $this->delete($thread->path());
+        // $res->assertStatus(403);
+    }
+
+    /** @test */
+    public function authorazied_user_can_delete_thread()
     {
         $this->signIn();
 
-        $thread = create('App\Thread');
+        $thread = create('App\Thread', ['user_id' => auth()->id() ]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         $this->json('DELETE', $thread->path());
@@ -50,6 +76,14 @@ class ThreadsTest extends TestCase
         $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
     }
+
+
+
+
+
+
+
+
 
     /** @test */
     public function a_user_can_read_a_single_thread()

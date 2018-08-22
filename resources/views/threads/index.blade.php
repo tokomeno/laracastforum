@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-           @foreach ($threads as $thread)
+           @forelse ($threads as $thread)
             <div class="card my-3">
                 <div class="card-header"> <h4 class='d-flex'>
                         <a href="{{$thread->path()}}">{{$thread->title}}</a>
@@ -14,12 +14,14 @@
 </div>
                  <div class="card-body mt-3">
                    	<article>
-                   	
+
                    		<div class="body"> {{$thread->body}} </div>
                    	</article>
                   </div>
             </div>
-          @endforeach
+          @empty
+          <h3>There are no relevant info for this time</h3>
+          @endforelse
         </div>
     </div>
 </div>
