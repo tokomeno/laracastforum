@@ -16,14 +16,14 @@
 
                    		<div class="body"> {{$thread->body}} </div>
                    	</article>
-                  @can('update', $thread)
+                  @auth
                   <form action="{{$thread->path()}}" method="post">
                       {{csrf_field()}}
                       {{method_field('delete')}}
 
                       <button class="btn btn-danger">Deltee</button>
                   </form>
-                  @endcan
+                  @endauth
 
                    {{-- @endforeach --}}
                 </div>

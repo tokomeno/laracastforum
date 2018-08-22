@@ -68,10 +68,17 @@ class ThreadsTest extends TestCase
     {
         $this->signIn();
 
-        $thread = create('App\Thread', ['user_id' => auth()->id() ]);
+        // $thread = create('App\Thread', );
+
+
+
+         $thread = factory('App\Thread')->create(['user_id' => auth()->user()->id ]);
+         // var_dump();
+          // dd($thread . auth()->user()->id);
+
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
-        $this->json('DELETE', $thread->path());
+        $this->delete($thread->path());
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
