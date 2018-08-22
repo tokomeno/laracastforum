@@ -6,16 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {   
-    use Favoritable;
+    use Favoritable, RecordActivity;
 
 	protected $guarded = ['id'];
     protected $with = ['owner', 'favorites'];
 
     public function owner(){
     	return $this->belongsTo(User::class, 'user_id');
-    }
-
-   
-
-
+    } 
 }

@@ -29,7 +29,7 @@ class ThreadsTest extends TestCase
     public function a_user_can_browse_threads()
     {
 
-        $response = $this->get('/threads');
+        $response = $this->get('threads');
 
         // $response->assertStatus(200);
         $response->assertSee($this->thread->title);
@@ -68,30 +68,14 @@ class ThreadsTest extends TestCase
     {
         $this->signIn();
 
-        // $thread = create('App\Thread', );
-
-
-
-         $thread = factory('App\Thread')->create(['user_id' => auth()->user()->id ]);
-         // var_dump();
-          // dd($thread . auth()->user()->id);
-
+        $thread = create('App\Thread', ['user_id' => auth()->user()->id ]);
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
-        $this->delete($thread->path());
+        $this->json('DELETE', $thread->path());
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
     }
-
-
-
-
-
-
-
-
-
     /** @test */
     public function a_user_can_read_a_single_thread()
     {
@@ -118,7 +102,7 @@ class ThreadsTest extends TestCase
 
         $threadNotInChannel = factory('App\Thread')->create();
 
-        $this->get('/threads/'. $channel->slug)
+        $this->get('threads/'. $channel->slug)
             ->assertSee($threadInChannel->title)
             ->assertDontSee($threadNotInChannel->title)
             ;
@@ -133,7 +117,7 @@ class ThreadsTest extends TestCase
 
         $thread = factory('App\Thread')->create();
 
-        $this->get('/threads?by=Doe')
+        $this->get('threads?by=Doe')
             ->assertSee($mythread->title)
             ->assertDontSee($thread->title);
 
@@ -154,7 +138,7 @@ class ThreadsTest extends TestCase
 
         $thread = $this->thread;
 // dd($this->get('/threads?popular=1'));
-        $response = $this->getJson('/threads?popular=1')->json();
+        $response = $this->getJson('threads?popular=1')->json();
 
 
         $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
