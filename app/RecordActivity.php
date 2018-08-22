@@ -8,7 +8,7 @@ trait RecordActivity
 {   
     protected static function bootRecordActivity(){
         
-        if(auth()->guest()) return;
+    if(auth()->guest()) return;
        foreach(static::getEvents() as $event){
         static::created(function ($model) use ($event){
             $model->recordActivity('created', $model);
