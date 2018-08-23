@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-	
+
 <div class="page-header d-flex">
 	<h1>
 		{{$profileUser->name}}
@@ -12,8 +12,20 @@
 		Since {{$profileUser->created_at->diffForHumans() }}
 	</small>
 </div>
+<hr>
 
- <div class="col-md-8">
+
+<div class="col-md-8">
+  @foreach ($activities as $date => $activity)
+    <h2>{{$date}}</h2>
+    @foreach ($activity as $a)
+        @include("profiles.activities.{$a->type}", ['activity' => $a])
+    @endforeach
+  @endforeach
+</div>
+
+
+ {{-- <div class="col-md-8">
  	@foreach ($threads as $thread)
             <div class="card my-3">
                 <a class="card-header" href="{{$thread->path()}}"> {{$thread->title}}</a>
@@ -30,11 +42,11 @@
                 </div>
             </div>
  	@endforeach
-   </div>
-	
-	{{$threads->links()}}
+   </div> --}}
+
+	{{-- {{$threads->links()}} --}}
  </div>
 
-     
-    
+
+
 @endsection

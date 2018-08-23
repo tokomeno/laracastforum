@@ -11,7 +11,7 @@
                    {{-- @foreach ($threads as $thread) --}}
 
                    	<article>
-                      <a href="#">{{$thread->creator->name}}</a>
+                      <a href="{{ route('profile', $thread->creator) }}">{{$thread->creator->name}}</a>
                    		<h4> {{$thread->title}} </h4>
 
                    		<div class="body"> {{$thread->body}} </div>
