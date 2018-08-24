@@ -71,7 +71,7 @@ class ThreadController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
-
+        session()->flash('flash', 'thread was published!');
         return redirect($thread->path());
     }
 
@@ -126,6 +126,7 @@ class ThreadController extends Controller
         // $thread->replies()->delete();
         $thread->delete();
         // return response([], 200);
+        session()->flash('flash', 'thread was deleted successful!');
         return redirect('threads');
     }
 

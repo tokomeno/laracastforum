@@ -26,6 +26,35 @@ class ThreadsTest extends TestCase
 
     }
 
+
+     // if this->thead is created in this method thread is not creating activity feed
+    //fuck this is strange thread create doesnot creates activity but from broser does
+    /** @test */
+    public function authorazied_user_can_delete_thread()
+    {
+        $this->signIn();
+        $thread = factory('App\Thread')
+        ->create([ 'user_id' => auth()->id() ]);
+        $reply = create('App\Reply', ['thread_id' => $thread->id]);
+
+
+        $this->json('DELETE', $thread->path());
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
+        $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'subject_id' => $thread->id,
+            'subject_type' => get_class($thread)
+        ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'subject_id' => $reply->id,
+            'subject_type' => get_class($reply)
+        ]);
+    }
+
+
     /** @test */
     public function a_user_can_browse_threads()
     {
@@ -63,31 +92,8 @@ class ThreadsTest extends TestCase
         $res = $this->delete($thread->path());
         // $res->assertStatus(403);
     }
-    
-    // fuck this is strange thread create doesnot creates activity but from broser does
-    /** @test */
-    public function authorazied_user_can_delete_thread()
-    {
-        $this->signIn();   
-        $thread = factory('App\Thread')
-        ->create([ 'user_id' => auth()->id() ]); 
-        $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
-        $this->json('DELETE', $thread->path());
-            
-        $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
-        $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
-     
-        $this->assertDatabaseMissing('activities', [
-            'subject_id' => $thread->id,
-            'subject_type' => get_class($thread) 
-        ]);
 
-        $this->assertDatabaseMissing('activities', [
-            'subject_id' => $reply->id,
-            'subject_type' => get_class($reply) 
-        ]);
-    }
     /** @test */
     public function a_user_can_read_a_single_thread()
     {

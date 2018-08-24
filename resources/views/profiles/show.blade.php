@@ -19,7 +19,9 @@
   @foreach ($activities as $date => $activity)
     <h2>{{$date}}</h2>
     @foreach ($activity as $a)
+      @if (view()->exists("profiles.activities.{$a->type}"))
         @include("profiles.activities.{$a->type}", ['activity' => $a])
+      @endif
     @endforeach
   @endforeach
 </div>
