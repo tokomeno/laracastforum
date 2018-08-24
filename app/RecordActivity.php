@@ -16,6 +16,11 @@ trait RecordActivity
        }
 
 
+    static::deleting(function ($model){
+        $model->activity()->delete();
+     });
+
+
     }
 
 

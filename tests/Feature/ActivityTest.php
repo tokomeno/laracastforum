@@ -7,6 +7,7 @@ use App\Activity;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Carbon\Carbon;
 
 class ActivityTest extends TestCase
 {
@@ -60,6 +61,29 @@ class ActivityTest extends TestCase
         $this->assertEquals(2, Activity::count()); 
 
      }
-    
+
+     
+     /** @test */
+    public function fetches_afeed_for_any_user()
+    { 
+        $this->signIn();
+        create('App\Thread', [
+            'user_id' => auth()->id() ,
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+        create('App\Thread', [
+            'user_id' => auth()->id() 
+        ]);
+        auth()->user()->activity()->first()->update([
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+
+        $feed = Activity::feed(auth()->user());
+
+        $this->assertTrue( $feed->keys()->contains( Carbon::now()->format('Y-m-d') ) );
+
+        $this->assertTrue( $feed->keys()->contains( Carbon::now()->subWeek()->format('Y-m-d') ) );
+    }
+     
     
 }
