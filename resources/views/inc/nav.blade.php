@@ -35,7 +35,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="channelsDropdown">
                             @foreach ($channels as $ch)
-                                <a class="dropdown-item" href="threads/{{ $ch->slug }}">
+                                <a class="dropdown-item" href="/threads/{{ $ch->slug }}">
                                     {{$ch->name}}
                                 </a>
                             @endforeach

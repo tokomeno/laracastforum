@@ -6,6 +6,7 @@ use Tests\TestCase;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use App\Activity;
 
 class ThreadsTest extends TestCase
 {
@@ -21,7 +22,7 @@ class ThreadsTest extends TestCase
     public function setUp(){
         parent::setUp();
 
-        $this->thread = factory('App\Thread')->create();
+        $this->thread = factory('App\Thread')->create(['title' => 'this thread']);
 
     }
 
@@ -62,21 +63,28 @@ class ThreadsTest extends TestCase
         $res = $this->delete($thread->path());
         // $res->assertStatus(403);
     }
-
+    
+    // fuck this is strange thread create doesnot creates activity but from broser does
     /** @test */
     public function authorazied_user_can_delete_thread()
     {
-        $this->signIn(); 
-        $thread = create('App\Thread', ['user_id' => auth()->id() ]);
+        $this->signIn();   
+        $thread = factory('App\Thread')
+        ->create([ 'user_id' => auth()->id() ]); 
         $reply = create('App\Reply', ['thread_id' => $thread->id]);
 
         $this->json('DELETE', $thread->path());
-
+            
         $this->assertDatabaseMissing('replies', ['id' => $reply->id ]);
         $this->assertDatabaseMissing('threads', ['id' => $thread->id ]);
-        
+     
         $this->assertDatabaseMissing('activities', [
             'subject_id' => $thread->id,
+            'subject_type' => get_class($thread) 
+        ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'subject_id' => $reply->id,
             'subject_type' => get_class($reply) 
         ]);
     }

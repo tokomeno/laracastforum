@@ -9,16 +9,16 @@ trait RecordActivity
     protected static function bootRecordActivity(){
         
     if(auth()->guest()) return;
+
        foreach(static::getEvents() as $event){
         static::created(function ($model) use ($event){
             $model->recordActivity('created', $model);
          });
        }
-
-
-    static::deleting(function ($model){
-        $model->activity()->delete();
-     });
+ 
+        static::deleting(function ($model){
+            $model->activity()->delete();
+        });
 
 
     }
