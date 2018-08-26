@@ -4,6 +4,16 @@ namespace App;
 
  trait Favoritable
  {
+
+     protected static function bootFavoritable(){
+
+        static::deleting(function ($model){
+            $model->favorites->each->delete();
+        });
+
+    }
+
+
  	public function favorites()
     {
         return $this->morphMany(Favorite::class, 'favorited');
@@ -32,7 +42,11 @@ namespace App;
       public function unfavorite()
     {
         $user = auth()->id();
-        return $this->favorites()->where('user_id', $user)->delete();
+        // return $this->favorites()->where('user_id', $user)->delete();
+
+         return $this->favorites()->where('user_id', $user)->get()->each(function($data){
+            $data->delete();
+         });
 
 
     }
