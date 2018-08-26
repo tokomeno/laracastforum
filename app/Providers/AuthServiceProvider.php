@@ -15,7 +15,10 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
          'App\Thread' => 'App\Policies\ThreadPolicy',
-          Thread::class => ThreadPolicy::class,
+          // Thread::class => ThreadPolicy::class,
+          'App\Reply' => 'App\Policies\ReplyPolicy',
+        // Reply::class => ReplyPolicy::class,
+
     ];
 
     /**

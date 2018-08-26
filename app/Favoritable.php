@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App;
 
 
@@ -10,9 +10,13 @@ namespace App;
     }
 
     public function isFavorited()
-    {   
-        $user = auth()->id();
-        return $this->favorites->where('user_id', $user)->exists();
+    {
+        return !! $this->favorites->where('user_id', auth()->id())->count();
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
     }
 
     public function favorite()
@@ -23,8 +27,17 @@ namespace App;
         }
 
     }
- 	
- } 
+
+
+      public function unfavorite()
+    {
+        $user = auth()->id();
+        return $this->favorites()->where('user_id', $user)->delete();
+
+
+    }
+
+ }
 
 
 

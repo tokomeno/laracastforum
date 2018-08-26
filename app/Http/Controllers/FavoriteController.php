@@ -28,4 +28,16 @@ class FavoriteController extends Controller
     	$reply->favorite();
         return redirect()->back();
     }
+
+
+     public function destroy(Reply $reply, Request $request)
+    {
+        // $fav = Favorite::create([
+        //  'user_id' => auth()->user()->id,
+        //  'favorited_id' => $reply->id,
+        //  'favorited_type' => get_class($reply)
+        // ]);
+
+        $reply->unfavorite();
+    }
 }

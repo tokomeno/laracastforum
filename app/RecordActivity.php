@@ -5,17 +5,18 @@ namespace App;
  * Record Activity
  */
 trait RecordActivity
-{   
+{
     protected static function bootRecordActivity(){
-        
+
     if(auth()->guest()) return;
 
        foreach(static::getEvents() as $event){
         static::created(function ($model) use ($event){
+            // $model
             $model->recordActivity('created', $model);
          });
        }
- 
+
         static::deleting(function ($model){
             $model->activity()->delete();
         });
@@ -31,10 +32,10 @@ trait RecordActivity
     public function recordActivity($event)
     {
         // Activity::create([
-        //     'user_id' => auth()->id(),
-        //     'type' => $this->getActivityType($event),
-        //     'subject_id' => $this->id,
-        //     'subject_type' => get_class($this)
+            // 'user_id' => auth()->id(),
+            // 'type' => $this->getActivityType($event),
+            // 'subject_id' => $this->id,
+            // 'subject_type' => get_class($this)
         // ]);
 
         $this->activity()->create([
@@ -44,7 +45,7 @@ trait RecordActivity
     }
 
     public function getActivityType($event)
-    {   
+    {
         $type = strtolower( ( new \ReflectionClass($this) )->getShortName());
         return $event .'_' .$type;
     }

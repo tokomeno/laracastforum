@@ -22,4 +22,23 @@ class ReplyController extends Controller
 
     	return redirect()->back();
     }
+
+    public function destroy(Reply $reply)
+    {
+         $this->authorize('update', $reply);
+         $reply->delete();
+         if(request()->ajax()){
+            return response()->json(['status' => 'reply has been deleted']);
+         }
+        return redirect()->back();
+    }
+
+     public function update(Reply $reply)
+    {
+        $this->authorize('update', $reply);
+        $reply->update( request(['body']) );
+
+        return redirect()->back();
+    }
 }
+

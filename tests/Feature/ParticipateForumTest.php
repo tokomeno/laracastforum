@@ -34,4 +34,61 @@ class ParticipateForumTest extends TestCase
      		->assertSee($reply->body);
 
     }
+
+
+    /** @test */
+    public function unauth_usr_cannot_delete_rep()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $reply = factory('App\Reply')->create();
+        $this->delete("/replies/{$reply->id}");
+
+        $this->signIn();
+
+    }
+
+
+
+    /** @test */
+    public function annother_user_cannot_delete_rep()
+    {
+
+        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+        $reply = factory('App\Reply')->create();
+
+        $this->signIn();
+        $this->delete("/replies/{$reply->id}");
+    }
+
+    /** @test */
+    public function user_can_delete_his_reply()
+    {
+        $this->signIn();
+        $reply = factory('App\Reply')->create(['user_id' => auth()->id()]);
+
+        $this->delete("/replies/{$reply->id}");
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+    }
+
+
+     /** @test */
+    public function user_can_update_his_reply()
+    {
+        $this->signIn();
+        $reply = factory('App\Reply')->create(['user_id' => auth()->id()]);
+
+        $this->post("/replies/{$reply->id}", ['body' => 'updated']);
+        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => 'updated']);
+    }
+
+      /** @test */
+    public function unauth_user_can_update_others_reply()
+    {
+ $this->expectException('Illuminate\Auth\AuthenticationException');
+         $reply = factory('App\Reply')->create();
+
+        $this->post("/replies/{$reply->id}", ['body' => 'updated']);
+        $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => 'updated']);
+    }
 }

@@ -39,7 +39,7 @@
             </div>
 
 
-
+{{--
             <form action="{{ $thread->path() }}/replies" method="POST" class="mt-4">
               {{csrf_field()}}
               <div class="form-group">
@@ -49,10 +49,11 @@
 
               <button class="btn">Submit</button>
 
-            </form>
-      </div>
+            </form> --}}
 
-          <div class="col-md-4">
+            {{-- <new-reply endpoint="{{ $thread->path() }}"> </new-reply> --}}
+      </div>
+ <div class="col-md-4">
             <div class="card">
                 <div class="card-header">SOme</div>
 
