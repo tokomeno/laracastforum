@@ -259,30 +259,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "tests/Feature/CreateThreadsTest.php",
-			"settings":
-			{
-				"buffer_size": 1485,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithAuthentication.php",
-			"settings":
-			{
-				"buffer_size": 3902,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "tests/utilities/functions.php",
-			"settings":
-			{
-				"buffer_size": 244,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -341,6 +317,9 @@
 	],
 	"file_history":
 	[
+		"/C/Users/MAST/Desktop/some/laracasts/tests/utilities/functions.php",
+		"/C/Users/MAST/Desktop/some/laracasts/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithAuthentication.php",
+		"/C/Users/MAST/Desktop/some/laracasts/tests/Feature/CreateThreadsTest.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/TestCase.php",
 		"/C/Users/MAST/Desktop/some/laracasts/vendor/filp/whoops/src/Whoops/Resources/js/clipboard.min.js",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PublicationController.php",
@@ -465,14 +444,11 @@
 		"/C/Users/MAST/Desktop/greens - Shortcut.lnk",
 		"/C/Users/MAST/Desktop/play.html",
 		"/C/xampp/htdocs/horizon/resources/views/client/checkout.blade.php",
-		"/C/xampp/htdocs/horizon/resources/views/client/cart.blade.php",
-		"/C/Users/MAST/Desktop/js.js",
-		"/C/xampp/htdocs/horizon/app/Http/Controllers/CartController.php",
-		"/C/Users/MAST/Desktop/Untitled.js"
+		"/C/xampp/htdocs/horizon/resources/views/client/cart.blade.php"
 	],
 	"find":
 	{
-		"height": 29.0
+		"height": 28.0
 	},
 	"find_in_files":
 	{
@@ -631,97 +607,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "tests/Feature/CreateThreadsTest.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1485,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithAuthentication.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3902,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								384,
-								384
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 228.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "tests/utilities/functions.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 244,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								139,
-								139
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		},
 		{
@@ -732,7 +619,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 29.0
+		"height": 28.0
 	},
 	"input":
 	{
@@ -776,7 +663,7 @@
 	"project": "laracasts.sublime-project",
 	"replace":
 	{
-		"height": 54.0
+		"height": 52.0
 	},
 	"save_all_on_build": true,
 	"select_file":
