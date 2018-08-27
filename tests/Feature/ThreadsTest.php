@@ -95,20 +95,20 @@ class ThreadsTest extends TestCase
 
 
     /** @test */
-    public function a_user_can_read_a_single_thread()
-    {
+    // public function a_user_can_read_a_single_thread()
+    // {
 
-        $response = $this->get($this->thread->path())
-            ->assertSee($this->thread->title);
-    }
-    /** @test */
-    public function a_user_can_read_replies_of_thread(){
+    //     $response = $this->get($this->thread->path())
+    //         ->assertSee($this->thread->title);
+    // }
+    // /** @test */
+    // public function a_user_can_read_replies_of_thread(){
 
-        $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
-        // $response =
-        $this->get($this->thread->path())
-            ->assertSee($reply->body);
-    }
+    //     $reply = factory('App\Reply')->create(['thread_id' => $this->thread->id]);
+    //     // $response =
+    //     $this->get($this->thread->path())
+    //         ->assertSee($reply->body);
+    // }
 
     /** @test */
     public function filter_thread_by_channel()
@@ -160,6 +160,21 @@ class ThreadsTest extends TestCase
 
 
         $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+    }
+
+
+
+    /** @test */
+    public function a_user_can_req_all_rep_of_thread()
+    { 
+        $thread = create('App\Thread');
+        $reply = factory('App\Reply', 2)->create(['thread_id' => $thread->id]);
+
+
+        $response = $this->getJson($thread->path(). '/replies')->json();
+
+        $this->assertCount(1, $response['data']);
+        $this->assertEquals(2, $response['total']); 
     }
 
 }

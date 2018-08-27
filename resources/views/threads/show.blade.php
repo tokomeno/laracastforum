@@ -29,7 +29,7 @@
               <replies 
               @removed="repliesCount--"
               @added="repliesCount++"
-               :data="{{$thread->replies}}"
+               {{-- :data="{{$thread->replies}}" --}}
                ></replies>
 {{--  
               <form action="{{ $thread->path() }}/replies" method="POST" class="mt-4">

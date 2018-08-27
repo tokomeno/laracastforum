@@ -47954,10 +47954,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: { 'reply': __WEBPACK_IMPORTED_MODULE_0__Reply_vue___default.a, 'new-reply': __WEBPACK_IMPORTED_MODULE_1__NewReply_vue___default.a },
-    props: ['data'],
+    // props:['data'],
     data: function data() {
         return {
-            items: this.data
+            items: []
         };
     },
 

@@ -13,10 +13,10 @@ import Reply from './Reply.vue';
 import NewReply from './NewReply.vue';
 export default {
     components: { 'reply': Reply, 'new-reply':NewReply },
-    props:['data'],
+    // props:['data'],
     data(){
         return{
-            items:this.data,
+            items:[],
         }
     },
     methods:{
