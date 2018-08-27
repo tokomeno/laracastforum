@@ -21,9 +21,10 @@ window.flash = message => window.events.$emit('flash', message)
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.component('paginator', require('./components/Paginator.vue'));
 
 Vue.component('flash', require('./components/Flash.vue'));
-Vue.component('thread-view', require('./components/pages/Thread.vue')); 
+Vue.component('thread-view', require('./components/pages/Thread.vue'));
 
 // Vue.component('replies', require('./components/replies.vue'));
 // Vue.component('reply', require('./components/Reply.vue'));
