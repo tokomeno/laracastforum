@@ -15,10 +15,14 @@ class ReplyController extends Controller
 
     public function store($channel, Thread $thread, Request $request)
     {
-    	$thread->addReply([
+    	$reply = $thread->addReply([
     		'body' => request('body'),
     		'user_id' => auth()->id()
-    	]);
+        ]);
+        
+        if(request()->ajax()){
+            return $reply->load('owner');
+         }
 
     	return redirect()->back();
     }

@@ -55,19 +55,22 @@
         	update(){
         		axios.post('/replies/' + this.data.id, {
         			body:this.body
-        		}).then(() => {
-        			this.editing = false
+            })
+            // .then(() => {
+        		// 	this.editing = false
+        		// 	flash('reply has been updated')
+            // })
+            	this.editing = false
         			flash('reply has been updated')
-        		})
         	},
         	destroy(){
         		axios.delete('/replies/' + this.data.id)
-        		.then(() => {
-              this.editing = false
+        		// .then(() => {
+            //   this.editing = false
+            //   this.$emit('deleted', this.data.id)
+            // })
+            this.editing = false
               this.$emit('deleted', this.data.id)
-        			// flash('reply has been deleted')
-        			// $(this.$el).fadeOut(400);
-        		})
         	}
         },
         computed:{
@@ -77,8 +80,8 @@
           canUpdate(){
             // return this.data.owner.id == window.App.user.id;
             return this.authorize(user => {
-              console.log(user)
-              console.log(this.data.owner.id)
+              // console.log(user)
+              // console.log(this.data.owner.id)
               return user.id == this.data.owner.id }
               )
           }

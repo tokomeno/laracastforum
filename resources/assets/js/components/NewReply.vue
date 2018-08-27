@@ -1,35 +1,44 @@
 <template>
      <div>
+         <div v-if="signedIn">
               <div class="form-group">
                 <label for="">Text</label>
                 <textarea id="" class="form-control" required rows="3" name='body' v-model="body"></textarea>
               </div>
 
               <button class="btn" @click="submit">Submit</button>
-
+        </div>
+        <div v-else>
+            Please sign in..
+        </div>
       </div>
 </template>
 <script>
-    export default {
-        props: [''],
+    export default { 
         data() {
             return {
                 body: '',
-                endpoint:''
             }
         },
         methods:{
             submit(){
-                axios.post(this.endpoint, {
-                    body:this.body
-                })
+                axios.post(this.endpoint, { body:this.body })
                 .then(data => {
                     this.body = ''
                     flash('Reply has been added')
-                    events.$emit('newReply', data)
+                    this.$emit('created', data.data)
                 })
             }
 
+       },
+       computed:{
+
+        signedIn(){
+            return window.App.signedIn;
+          },
+          endpoint(){
+               return location.pathname + '/replies'
+          }
        }
     }
 </script>

@@ -23,9 +23,9 @@ window.flash = message => window.events.$emit('flash', message)
  */
 
 Vue.component('flash', require('./components/Flash.vue'));
-// Vue.component('replies', require('./components/replies.vue'));
+Vue.component('thread-view', require('./components/pages/Thread.vue')); 
 
-Vue.component('thread-view', require('./components/pages/Thread.vue'));
+// Vue.component('replies', require('./components/replies.vue'));
 // Vue.component('reply', require('./components/Reply.vue'));
 // Vue.component('favorite', require('./components/Favorite.vue'));
 

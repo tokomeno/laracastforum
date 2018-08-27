@@ -26,8 +26,12 @@
                   </div>
               </div>
 
-              <replies @removed="repliesCount--" :data="{{$thread->replies}}"></replies>
- 
+              <replies 
+              @removed="repliesCount--"
+              @added="repliesCount++"
+               :data="{{$thread->replies}}"
+               ></replies>
+{{--  
               <form action="{{ $thread->path() }}/replies" method="POST" class="mt-4">
                 {{csrf_field()}}
                 <div class="form-group">
@@ -37,9 +41,7 @@
 
                 <button class="btn">Submit</button>
 
-              </form>
-
-              {{-- <new-reply endpoint="{{ $thread->path() }}"> </new-reply> --}}
+              </form> --}}
         </div>
   <div class="col-md-4">
               <div class="card">
