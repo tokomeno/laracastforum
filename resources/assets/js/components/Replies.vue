@@ -20,6 +20,9 @@ export default {
         }
     },
     methods:{
+        fetch(){
+            
+        },
         remove(index){
             console.log('remove' + index)
             this.items.splice(index, 1)

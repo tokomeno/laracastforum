@@ -47962,6 +47962,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        fetch: function fetch() {},
         remove: function remove(index) {
             console.log('remove' + index);
             this.items.splice(index, 1);
