@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Activity;
 
 class Thread extends Model
-{   
+{
     use RecordActivity;
     protected $guarded = ['id'];
     protected $with = ['creator', 'channel'];
@@ -15,23 +15,23 @@ class Thread extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('replyCount', function($builder){
-            $builder->withCount('replies');
-        });
- 
+        // static::addGlobalScope('replyCount', function($builder){
+        //     $builder->withCount('replies');
+        // });
+
         static::deleting(function($thread) {
             $thread->replies->each(function ($reply){
                 $reply->delete();
             });
         });
-        
+
         // static::created(function ($thread){
         //    $thread->recordActivity('created', $thread);
         // });
 
     }
 
-    
+
 
     public function path()
     {
@@ -56,7 +56,10 @@ class Thread extends Model
 
     public function addReply($reply)
     {
-       return $this->replies()->create($reply);
+      // $reply = $this->replies()->create($reply);
+      // $this->increment('replies_count');
+      // return $reply;
+      return $this->replies()->create($reply);
     }
 
     public function scopeFilter($query, $filters)

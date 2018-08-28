@@ -13,11 +13,14 @@ class ContentTableSeeder extends Seeder
     {
         //
 
-        $th = factory('App\Thread', 40)->create()
+         $th = factory('App\Thread', 10)->create(['replies_count' => 10])
         ->each(function($u){
-        	factory('App\Reply', 10)->create([
-        		'thread_id' => $u->id
-        	]);
+            factory('App\Reply', 10)->create([
+                'thread_id' => $u->id
+            ]);
         });
+
+         factory('App\Thread', 5)->create();
+
     }
 }

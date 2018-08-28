@@ -10,13 +10,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                {{-- <li class="nav-item">
+                    <a class="nav-link" href="/threads">All Threads</a>
+                </li>
                  <li class="nav-item">
-                        <a class="nav-link" href="/threads">All Threads</a>
-                    </li>
-                     <li class="nav-item">
-                        <a class="nav-link" href="/threads?popular=1">Popular</a>
-                    </li>
+                    <a class="nav-link" href="/threads?popular=1">Popular</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/threads/create">Add Thread</a>
+                </li> --}}
 
+                <li class="nav-item dropdown">
+                        <a id="browse" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                             Broewse <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="browse">
+                                <a  class="dropdown-item" href="/threads">All Threads</a>
+                                <a  class="dropdown-item" href="/threads/create">Add Thread</a>
+                                <a  class="dropdown-item" href="/threads?unanswered=1">Unanswered threads</a>
+                        </div>
+                    </li>
 
                 @auth
                 <li class="nav-item">
@@ -24,12 +37,10 @@
                 </li>
                 @endauth
 
-                <li class="nav-item">
-                    <a class="nav-link" href="/threads/create">Add Thread</a>
-                </li>
 
 
-                 <li class="nav-item dropdown">
+
+                    <li class="nav-item dropdown">
                         <a id="channelsDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                              Cannels <span class="caret"></span>
                         </a>

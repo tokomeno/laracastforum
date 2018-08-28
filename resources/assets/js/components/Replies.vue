@@ -32,6 +32,8 @@ export default {
         refresh({data}){
             this.dataSet = data
             this.items = data.data
+            console.log('refresh in replies.vue')
+            window.scrollTo(0, 0)
         },
         url(page){
             if(! page){
