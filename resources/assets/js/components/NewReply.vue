@@ -14,7 +14,7 @@
       </div>
 </template>
 <script>
-    export default { 
+    export default {
         data() {
             return {
                 body: '',
@@ -22,7 +22,7 @@
         },
         methods:{
             submit(){
-                axios.post(this.endpoint, { body:this.body })
+                axios.post(`${location.pathname}/replies`, { body:this.body })
                 .then(data => {
                     this.body = ''
                     flash('Reply has been added')
@@ -32,12 +32,8 @@
 
        },
        computed:{
-
         signedIn(){
             return window.App.signedIn;
-          },
-          endpoint(){
-               return location.pathname + '/replies'
           }
        }
     }

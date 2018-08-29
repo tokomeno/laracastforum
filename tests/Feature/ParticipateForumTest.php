@@ -27,6 +27,7 @@ class ParticipateForumTest extends TestCase
     //     auth()->login($user);
     //     $thread = factory('App\Thread')->create();
 
+<<<<<<< HEAD
     //     $reply = factory('App\Reply')->create();
     //  	$this->post($thread->path() .'/replies', $reply->toArray());
 
@@ -34,10 +35,24 @@ class ParticipateForumTest extends TestCase
     //  		// ->assertSee($reply->body)
 
     // }
+=======
+        $reply = factory('App\Reply')->make();
+     	$this->post($thread->path() .'/replies', $reply->toArray());
+
+     	// $this->get($thread->path())
+     	// 	->assertSee($reply->body);
+
+        $this->assertDatabaseHas('replies', [
+            'body' => $reply->body
+        ]);
+
+        $this->assertEquals(1, $thread->fresh()->replies_count);
+    }
+>>>>>>> 0e13677933c5e972bae553f80ebc7ca56e929ce0
 
 
     /** @test */
-    public function unauth_usr_cannot_delete_rep()
+    public function unauth_user_cannot_delete_rep()
     {
         $this->expectException('Illuminate\Auth\AuthenticationException');
 
@@ -69,6 +84,8 @@ class ParticipateForumTest extends TestCase
 
         $this->delete("/replies/{$reply->id}");
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+
+        $this->assertEquals(0, $reply->thread->fresh()->replies_count);
     }
 
 
@@ -83,7 +100,7 @@ class ParticipateForumTest extends TestCase
     }
 
       /** @test */
-    public function unauth_user_can_update_others_reply()
+    public function unauth_user_cannot_update_others_reply()
     {
  $this->expectException('Illuminate\Auth\AuthenticationException');
          $reply = factory('App\Reply')->create();

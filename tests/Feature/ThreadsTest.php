@@ -95,12 +95,14 @@ class ThreadsTest extends TestCase
 
 
     /** @test */
-    // public function a_user_can_read_a_single_thread()
-    // {
+    public function a_user_can_read_a_single_thread()
+    {
 
-    //     $response = $this->get($this->thread->path())
-    //         ->assertSee($this->thread->title);
-    // }
+        $response = $this->get($this->thread->path())
+            ->assertSee($this->thread->title);
+    }
+
+
     // /** @test */
     // public function a_user_can_read_replies_of_thread(){
 
@@ -141,32 +143,13 @@ class ThreadsTest extends TestCase
 
     }
 
-    /** @test */
-    public function u_can_filter_by_pop()
-    {
 
-        $thread3 = factory('App\Thread')->create();
-        factory('App\Reply', 3)
-            ->create(['thread_id' => $thread3->id]);
-
-        $thread2 = factory('App\Thread')->create();
-
-        factory('App\Reply', 2)
-            ->create(['thread_id' => $thread2->id]);
-
-        $thread = $this->thread;
-// dd($this->get('/threads?popular=1'));
-        $response = $this->getJson('threads?popular=1')->json();
-
-
-        $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
-    }
 
 
 
     /** @test */
     public function a_user_can_req_all_rep_of_thread()
-    { 
+    {
         $thread = create('App\Thread');
         $reply = factory('App\Reply', 2)->create(['thread_id' => $thread->id]);
 
@@ -174,7 +157,39 @@ class ThreadsTest extends TestCase
         $response = $this->getJson($thread->path(). '/replies')->json();
 
         $this->assertCount(1, $response['data']);
-        $this->assertEquals(2, $response['total']); 
+        $this->assertEquals(2, $response['total']);
+    }
+
+
+     /** @test */
+    public function u_can_filter_by_pop()
+    {
+
+        $thread3 = factory('App\Thread')->create();
+        factory('App\Reply', 3)
+            ->create(['thread_id' => $thread3->id]);
+        $thread2 = factory('App\Thread')->create();
+        factory('App\Reply', 2)
+            ->create(['thread_id' => $thread2->id]);
+        $thread = $this->thread;
+        $response = $this->getJson('threads?popular=1')->json();
+
+
+        $this->assertEquals([3, 2, 0], array_column($response, 'replies_count'));
+    }
+
+
+    /** @test */
+    public function a_user_can_filter_unanswerd_thread()
+    {
+
+        $thread = factory('App\Thread')->create();
+        factory('App\Reply')->create(['thread_id' => $thread->id]);
+
+        $response = $this->getJson('threads?unanswered=1')->json();
+
+        $this->assertCount(1, $response);
+
     }
 
 
