@@ -313,20 +313,49 @@
 	},
 	"expanded_folders":
 	[
+		"/C/xampp/htdocs/mono",
+		"/C/xampp/htdocs/mono/app",
+		"/C/xampp/htdocs/mono/database",
+		"/C/xampp/htdocs/mono/database/migrations"
 	],
 	"file_history":
 	[
+		"/C/xampp/htdocs/mono/database/migrations/2018_07_06_074309_create_contacts_table.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/laravellocalization.php",
+		"/C/xampp/htdocs/mono/resources/views/client/inc/navbar.blade.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/tinymce.blade.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/client.blade.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/photos.blade.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/main.blade.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PublicController.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/app.php",
+		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PublicationController.php",
+		"/C/Users/MAST/Desktop/some/laracasts/database/2018_08_29_084027_create_thread_subscriptions_table.php",
+		"/C/Users/MAST/Desktop/some/laracasts/tests/Feature/ThreadsTest.php",
+		"/C/xampp/htdocs/excl/database/migrations/2018_07_19_075259_create_groups_table.php",
+		"/C/xampp/htdocs/excl/database/migrations/2018_07_19_075645_create_teachers_table.php",
+		"/C/xampp/htdocs/excl/database/migrations/2018_07_19_104928_create_subcourses_table.php",
+		"/C/Users/MAST/Desktop/some/laracasts/app/ThreadSubscription.php",
+		"/C/Users/MAST/Desktop/some/abituri/app/Http/Controllers/PublicController.php",
+		"/C/Users/MAST/Desktop/some/abituri/app/Http/Middleware/CheckRole.php",
+		"/C/Users/MAST/Desktop/some/abituri/routes/web.php",
+		"/C/Users/MAST/Desktop/some/abituri/database/migrations/2018_03_20_074402_create_subjects_table.php",
+		"/C/Users/MAST/Desktop/some/abituri/database/seeds/MyUserSeeder.php",
+		"/C/Users/MAST/Desktop/some/abituri/database/seeds/SubjectTableSeeder.php",
+		"/C/Users/MAST/Desktop/some/abituri/app/Http/Controllers/ProfileController.php",
+		"/C/Users/MAST/Desktop/some/abituri/app/Http/Controllers/ResultController.php",
+		"/C/Users/MAST/Desktop/some/abituri/app/User.php",
+		"/C/Users/MAST/Desktop/some/laracasts/routes/web.php",
+		"/C/Users/MAST/Desktop/some/abituri/resources/assets/js/app.js",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/contact.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/footer.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/photogallery.blade.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/main.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/map.blade.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/utilities/functions.php",
 		"/C/Users/MAST/Desktop/some/laracasts/vendor/laravel/framework/src/Illuminate/Foundation/Testing/Concerns/InteractsWithAuthentication.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/Feature/CreateThreadsTest.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/TestCase.php",
 		"/C/Users/MAST/Desktop/some/laracasts/vendor/filp/whoops/src/Whoops/Resources/js/clipboard.min.js",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PublicationController.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/web.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/master.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/edit.blade.php",
@@ -369,7 +398,6 @@
 		"/C/xampp/htdocs/global1/app/ServiceTranslation.php",
 		"/C/xampp/htdocs/global1/app/Page.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/ArticleController.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PublicController.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/blog_show.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/news_show.blade.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/publication_show.blade.php",
@@ -380,7 +408,6 @@
 		"/C/xampp/htdocs/global1/resources/views/administrator/articles/create.blade.php",
 		"/C/xampp/htdocs/horizon/app/Http/Controllers/ProductController.php",
 		"/C/xampp/htdocs/global1/database/migrations/2018_07_11_135555_create_pages_table.php",
-		"/C/xampp/htdocs/excl/database/migrations/2018_07_19_075645_create_teachers_table.php",
 		"/C/xampp/htdocs/global1/database/migrations/2014_10_12_000000_create_users_table.php",
 		"/C/xampp/htdocs/global1/database/migrations/2018_07_19_075645_create_teachers_table.php",
 		"/C/xampp/htdocs/horizon/database/migrations/2018_07_11_135555_create_pages_table.php",
@@ -390,7 +417,6 @@
 		"/C/xampp/htdocs/greens/routes/web.php",
 		"/C/xampp/htdocs/global1/database/factories/UserFactory.php",
 		"/C/xampp/htdocs/mono/database/factories/PartnerFactory.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/client.blade.php",
 		"/C/xampp/htdocs/greens/database/seeds/ContentTableSeeder.php",
 		"/C/xampp/htdocs/global1/database/seeds/UserTableSeeder.php",
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/js.js",
@@ -414,40 +440,18 @@
 		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PagesController.php",
 		"/C/Users/MAST/Desktop/some/laracasts/app/Http/Controllers/ThreadController.php",
 		"/C/Users/MAST/Desktop/some/laracasts/resources/views/threads/show.blade.php",
-		"/C/Users/MAST/Desktop/some/laracasts/tests/Feature/ThreadsTest.php",
 		"/C/Users/MAST/Desktop/some/laracasts/app/Policies/ThreadPolicy.php",
 		"/C/Users/MAST/Desktop/some/laracasts/app/Providers/AuthServiceProvider.php",
-		"/C/Users/MAST/Desktop/some/laracasts/routes/web.php",
 		"/C/Users/MAST/Desktop/some/laracasts/app/Thread.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/Unit/ChannelTest.php",
 		"/C/Users/MAST/Desktop/some/laracasts/tests/Unit/ThreadTest.php",
 		"/C/Users/MAST/Desktop/some/laracasts/resources/views/threads/index.blade.php",
 		"/C/Users/MAST/Desktop/some/laracasts/resources/views/layouts/app.blade.php",
-		"/C/Users/MAST/Desktop/some/laracasts/resources/views/inc/nav.blade.php",
-		"/C/Users/MAST/Desktop/some/laracasts/resources/views/profiles/show.blade.php",
-		"/C/Users/MAST/AppData/Roaming/Sublime Text 3/Packages/User/Snippets/test.sublime-snippet",
-		"/C/Users/MAST/Desktop/some/laracasts/tests/Feature/ProfileTest.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/Http/Controllers/ProfileController.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/User.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/Channel.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/Favoritable.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/Reply.php",
-		"/C/Users/MAST/Desktop/some/laracasts/app/Http/Controllers/Auth/RegisterController.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/BlogController.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/create.blade 3.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/create.blade 2.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/create.blade.php",
-		"/C/Users/MAST/Desktop/some/laracasts/resources/views/inc/reply.blade.php",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/about.blade.php",
-		"/C/Users/MAST/Desktop/ang-m/angular.json",
-		"/C/Users/MAST/AppData/Local/Temp/fz3temp-2/PageController.php",
-		"/C/xampp/htdocs/excl/resources/views/tinymce.blade.php",
-		"/C/xampp/htdocs/horizon/resources/views/administrator/products/update.blade.php",
-		"/C/xampp/htdocs/horizon/routes/web.php"
+		"/C/Users/MAST/Desktop/some/laracasts/resources/views/inc/nav.blade.php"
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -461,6 +465,10 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"&nbsp;",
+			"ეროვნულების",
+			"show",
+			"HomeController",
 			"გვედები",
 			"სურათები",
 			"meta",
@@ -584,11 +592,7 @@
 			"cookie",
 			"lifetime",
 			"all.",
-			"test",
-			"$lifetime = time() + 60 * 60;",
-			"time",
-			"$lifetime = time() + 60 * 60 * 24 * 365;",
-			"withCookie(cookie('favorites', $favorites)"
+			"test"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -644,7 +648,7 @@
 		"cols":
 		[
 			0.0,
-			0.959709911362,
+			0.954586739328,
 			1.0
 		],
 		"rows":
@@ -672,6 +676,38 @@
 		"selected_items":
 		[
 			[
+				"navbar",
+				"resources\\views\\client\\inc\\navbar.blade.php"
+			],
+			[
+				"threadsub",
+				"app\\ThreadSubscription.php"
+			],
+			[
+				"threadst",
+				"tests\\Feature\\ThreadsTest.php"
+			],
+			[
+				"seeder",
+				"database\\seeds\\MyUserSeeder.php"
+			],
+			[
+				"create_sub",
+				"database\\migrations\\2018_03_20_074402_create_subjects_table.php"
+			],
+			[
+				"resultcon",
+				"app\\Http\\Controllers\\ResultController.php"
+			],
+			[
+				"user.php",
+				"app\\User.php"
+			],
+			[
+				"web.php",
+				"routes\\web.php"
+			],
+			[
 				"createthr",
 				"tests\\Feature\\CreateThreadsTest.php"
 			],
@@ -690,10 +726,6 @@
 			[
 				"pages/it",
 				"global1\\resources\\views\\administrator\\pages\\items.blade.php"
-			],
-			[
-				"web.php",
-				"global1\\routes\\web.php"
 			],
 			[
 				"partnercn",
@@ -928,10 +960,6 @@
 				"app\\Http\\Controllers\\ThreadController.php"
 			],
 			[
-				"threadst",
-				"tests\\Feature\\ThreadsTest.php"
-			],
-			[
 				"authser",
 				"app\\Providers\\AuthServiceProvider.php"
 			],
@@ -1158,30 +1186,6 @@
 			[
 				"articlcon",
 				"app\\Http\\Controllers\\ArticleController.php"
-			],
-			[
-				"article/cre",
-				"greens\\resources\\views\\administrator\\articles\\create.blade.php"
-			],
-			[
-				"translation",
-				"horizon\\config\\translation-manager.php"
-			],
-			[
-				"blog.",
-				"greens\\app\\Blog.php"
-			],
-			[
-				"transla",
-				"greens\\config\\translatable.php"
-			],
-			[
-				"favorites.b",
-				"resources\\views\\client\\favorites.blade.php"
-			],
-			[
-				"product.bl",
-				"resources\\views\\inc\\product.blade.php"
 			]
 		],
 		"width": 0.0
@@ -1211,8 +1215,8 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
-	"side_bar_width": 242.0,
+	"side_bar_visible": false,
+	"side_bar_width": 334.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

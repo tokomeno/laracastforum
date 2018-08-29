@@ -177,5 +177,31 @@ class ThreadsTest extends TestCase
         $this->assertEquals(2, $response['total']); 
     }
 
+
+    /** @test */
+    public function a_thread_can_be_subscribed_to()
+    { 
+        $thread = create('App\Thread');
+
+        $this->signIn();
+        $thread->subscribe();
+
+        $this->assertEquals(1, $thread->subscriptions()->where('user_id', auth()->id())->count() );
+    }
+
+    /** @test */
+    public function a_thread_can_be_unsubscribed()
+    {
+        $thread = create('App\Thread');
+
+        $this->signIn();
+        $thread->subscribe();
+
+        $thread->unsubscribe();
+
+        $this->assertEquals(0, $thread->subscriptions()->where('user_id', auth()->id())->count() );
+    }
+    
+
 }
 

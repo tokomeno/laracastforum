@@ -62,7 +62,7 @@
                   </div>
               </div>
 
-
+            <subscribe-btn :active="true"></subscribe-btn>
 
     </div>
   </div>

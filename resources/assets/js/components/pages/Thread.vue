@@ -1,9 +1,11 @@
 <script>
 import replies from '../Replies.vue';
+import subscribeBtn from '../subscribeBtn.vue';
 export default {
-    props: ['proprepliescount'],
+    props: ['proprepliescount', 'subscribeBtn'],
     components:{
-        replies
+        replies,
+        'subscribe-btn': subscribeBtn
     },
     data(){
         return {
