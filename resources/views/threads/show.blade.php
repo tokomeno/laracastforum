@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+{{$thread->replies->count()}}
 <thread-view inline-template :proprepliescount="{{$thread->replies_count}}">
   <div class="container">
       <div class="row">
@@ -28,28 +29,15 @@
 
               <replies 
               @removed="repliesCount--"
-              @added="repliesCount++"
-               {{-- :data="{{$thread->replies}}" --}}
+              @added="repliesCount++" 
                ></replies>
-{{--  
-              <form action="{{ $thread->path() }}/replies" method="POST" class="mt-4">
-                {{csrf_field()}}
-                <div class="form-group">
-                  <label for="exampleFormControlTextarea1">Text</label>
-                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='body'></textarea>
-                </div>
-
-                <button class="btn">Submit</button>
-
-              </form> --}}
+ 
         </div>
   <div class="col-md-4">
               <div class="card">
                   <div class="card-header">SOme</div>
 
-                  <div class="card-body">
-                    {{-- @foreach ($threads as $thread) --}}
-
+                  <div class="card-body"> 
                       <article>
                         <p>
                           Thread was published at {{$thread->created_at->diffForHumans()}} by  
@@ -58,7 +46,7 @@
                         </p>
                       </article>
 
-                    {{-- @endforeach --}}
+           
                   </div>
               </div>
 
