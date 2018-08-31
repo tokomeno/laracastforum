@@ -44,4 +44,10 @@ Route::delete('/replies/{reply}/favorites', 'FavoriteController@destroy');
 Route::get('/profiles/{user}', 'ProfileController@show')->name('profile');
 
 
+//Sub threads
+ 
+Route::post('/threads/{channel}/{thread}/subscriptions', 
+	'ThreadSubscriptionController@store')->middleware('auth');
 
+Route::delete('/threads/{channel}/{thread}/subscriptions', 
+	'ThreadSubscriptionController@destroy')->middleware('auth');

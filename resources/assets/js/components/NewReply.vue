@@ -1,17 +1,17 @@
 <template>
-     <div>
-         <div v-if="signedIn">
-              <div class="form-group">
-                <label for="">Text</label>
-                <textarea id="" class="form-control" required rows="3" name='body' v-model="body"></textarea>
-              </div>
+  <div class="my-4">
+      <div v-if="signedIn">
+          <div class="form-group">
+            <label for="">Text</label>
+            <textarea id="" class="form-control" required rows="3" name='body' v-model="body"></textarea>
+          </div>
 
-              <button class="btn" @click="submit">Submit</button>
-        </div>
-        <div v-else>
-            Please sign in..
-        </div>
+          <button class="btn" @click="submit">Submit</button>
       </div>
+      <div v-else>
+          Please sign in..
+      </div>
+  </div>
 </template>
 <script>
     export default {

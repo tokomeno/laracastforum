@@ -12,6 +12,11 @@ class ContentTableSeeder extends Seeder
     public function run()
     {
         //
+        \App\User::create([
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'password' => 'password'
+        ]);
 
          $th = factory('App\Thread', 10)->create()
         ->each(function($u){

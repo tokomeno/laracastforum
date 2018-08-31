@@ -82,7 +82,9 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($channel, Thread $thread)
-    {
+    {   
+
+        // return $thread;
         // $replies = $thread->replies()->paginate(10);
         return view('threads.show', compact('thread'));
     }

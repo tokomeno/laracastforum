@@ -99,4 +99,21 @@ class ThreadTest extends TestCase
         );
         
     }
+
+
+    
+    /** @test */
+    public function if_authed_user_is_subed_to_thread()
+    {
+        $thread = create('App\Thread');
+
+        $this->signIn();
+
+        $this->assertFalse($thread->isSubscribedTo);
+
+        $thread->subscribe();
+
+        $this->assertTrue($thread->isSubscribedTo);
+
+    }
 }

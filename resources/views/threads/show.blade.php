@@ -34,8 +34,8 @@
  
         </div>
   <div class="col-md-4">
-              <div class="card">
-                  <div class="card-header">SOme</div>
+              <div class="card mb-3">
+                  <div class="card-header">Some</div>
 
                   <div class="card-body"> 
                       <article>
@@ -49,7 +49,10 @@
            
                   </div>
               </div>
+        
 
+            <sub-btn :propactive="{{$thread->isSubscribedTo ? 'true' : 'false'}}"></sub-btn>
+             {{-- <sub-btn :propactive="{{$thread->isSubscribedTo}}"></sub-btn> --}}
 
 
     </div>
