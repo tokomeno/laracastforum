@@ -26,33 +26,28 @@ class SubToThreadTest extends TestCase
 
     /** @test */
     public function a_user_sub_to_threads()
-    {	$this->signIn();
-
+    {
+      $this->signIn();
     	$thread = create('App\Thread');
+      $this->post($thread->path(). '/subscriptions');
 
-        $this->post($thread->path(). '/subscriptions');
+      $this->assertCount(1, $thread->subscriptions);
 
-        $this->assertCount(1, $thread->subscriptions);
-
-        // $thread->addReply([
-        // 	'user_id' => auth()->id(),
-        // 	'body' => 'Some reply here'
-        // ]);
     }
 
       /** @test */
       public function a_user_unsub_from_threads()
       {	$this->signIn();
-  
+
           $thread = create('App\Thread');
-  
+
           $this->post($thread->path(). '/subscriptions');
-  
+
           $this->assertCount(1, $thread->fresh()->subscriptions);
 
           $this->delete($thread->path(). '/subscriptions');
 
           $this->assertCount(0, $thread->fresh()->subscriptions);
-   
+
       }
 }

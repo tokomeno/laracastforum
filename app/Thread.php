@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Activity;
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
@@ -31,7 +32,7 @@ class Thread extends Model
         // });
 
     }
-    
+
 
 
     public function path()
@@ -60,7 +61,16 @@ class Thread extends Model
       // $reply = $this->replies()->create($reply);
       // $this->increment('replies_count');
       // return $reply;
-      return $this->replies()->create($reply);
+        $reply = $this->replies()->create($reply);
+
+        foreach ($this->subscriptions as $key => $subscription) {
+            if( $subscription->user_id != $reply->user_id){
+                $subscription->user->notify(new ThreadWasUpdated($this, $reply));
+            }
+        }
+
+
+        return $reply;
     }
 
     public function scopeFilter($query, $filters)
@@ -82,6 +92,8 @@ class Thread extends Model
         $this->subscriptions()->create([
             'user_id' => $userId ?: auth()->id()
         ]);
+
+        return $this;
     }
 
     public function subscriptions()
