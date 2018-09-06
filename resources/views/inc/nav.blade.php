@@ -57,6 +57,7 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+            <user-note></user-note>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

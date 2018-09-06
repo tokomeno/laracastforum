@@ -26,6 +26,8 @@ Vue.component('paginator', require('./components/Paginator.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('thread-view', require('./components/pages/Thread.vue'));
 
+
+Vue.component('user-note', require('./components/UserNote.vue'));
 // Vue.component('replies', require('./components/replies.vue'));
 // Vue.component('reply', require('./components/Reply.vue'));
 // Vue.component('favorite', require('./components/Favorite.vue'));
