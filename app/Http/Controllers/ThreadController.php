@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Channel;
-
 use App\Filters\ThreadFilters;
-
 use App\Thread;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -82,10 +81,14 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($channel, Thread $thread)
-    {   
+    {
+        // if(auth()->check()){
+            $key = sprintf('users.%s.visits.%s', auth()->id(), $thread->id);
 
-        // return $thread;
-        // $replies = $thread->replies()->paginate(10);
+            cache()->forever($key, Carbon::now() );
+
+        // }
+
         return view('threads.show', compact('thread'));
     }
 
