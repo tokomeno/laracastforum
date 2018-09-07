@@ -8,7 +8,7 @@
     
          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="noteDrop">
                 
-             <a v-for="note in notes" href="" class='dropdown-item'>
+             <a v-for="note in notes" :key href="" class='dropdown-item'>
                  Foobar
              </a>
         </div>
@@ -26,7 +26,7 @@ export default {
     },
     mounted(){
 
-        axios.get('/profiles/' + window.App.user.name + '/notifications')
+        axios.get('/profile/' + window.App.user.name + '/notifications')
         .then(res => {
             this.notes = res.data
         })

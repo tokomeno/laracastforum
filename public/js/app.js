@@ -30684,7 +30684,7 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(196);
+module.exports = __webpack_require__(199);
 
 
 /***/ }),
@@ -30721,7 +30721,7 @@ Vue.component('paginator', __webpack_require__(166));
 Vue.component('flash', __webpack_require__(169));
 Vue.component('thread-view', __webpack_require__(175));
 
-Vue.component('user-note', __webpack_require__(200));
+Vue.component('user-note', __webpack_require__(196));
 // Vue.component('replies', require('./components/replies.vue'));
 // Vue.component('reply', require('./components/Reply.vue'));
 // Vue.component('favorite', require('./components/Favorite.vue'));
@@ -65620,23 +65620,14 @@ if (false) {
 
 /***/ }),
 /* 196 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 197 */,
-/* 198 */,
-/* 199 */,
-/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(201)
+var __vue_script__ = __webpack_require__(197)
 /* template */
-var __vue_template__ = __webpack_require__(202)
+var __vue_template__ = __webpack_require__(198)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -65675,7 +65666,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 201 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65709,14 +65700,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        axios.get('/profiles/' + window.App.user.name + '/notifications').then(function (res) {
+        axios.get('/profile/' + window.App.user.name + '/notifications').then(function (res) {
             _this.notes = res.data;
         });
     }
 });
 
 /***/ }),
-/* 202 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -65775,6 +65766,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-2520e254", module.exports)
   }
 }
+
+/***/ }),
+/* 199 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

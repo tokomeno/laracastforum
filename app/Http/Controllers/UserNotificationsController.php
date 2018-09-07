@@ -14,7 +14,7 @@ class UserNotificationsController extends Controller
 		$this->middleware('auth');
 	}
 
-	public function index(User $user, $notificationId)
+	public function index(User $user, $notificationId = null)
 	{
 		if($user->id != auth()->id()){
 			abort(404);

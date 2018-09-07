@@ -67,7 +67,8 @@ class NotificationTest extends TestCase
           'body' => 'Some reply here'
         ]);
         $notId = auth()->user()->unreadNotifications->first()->id;
-        $endpoint = '/profile/' .auth()->user()->name. '/notifications/' . $notId;
+
+        $endpoint = '/profile/' .auth()->user()->name. '/notifications/';
 
        $response = $this->getJson($endpoint)->json();
 
