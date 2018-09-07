@@ -65,7 +65,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_thrad_can_be_sub()
     {
-    
+
         $thread = create('App\Thread');
 
         $this->signIn();
@@ -73,7 +73,7 @@ class ThreadTest extends TestCase
         $thread->subscribe();
 
 
-        $this->assertEquals(1, 
+        $this->assertEquals(1,
           $thread->subscriptions()->where('user_id', auth()->id() )->count()
         );
     }
@@ -87,21 +87,21 @@ class ThreadTest extends TestCase
 
         $thread->subscribe();
 
-         $this->assertEquals(1, 
+         $this->assertEquals(1,
           $thread->subscriptions()->where('user_id', auth()->id() )->count()
         );
 
         $thread->unsubscribe();
 
 
-        $this->assertEquals(0, 
+        $this->assertEquals(0,
           $thread->subscriptions()->where('user_id', auth()->id() )->count()
         );
-        
+
     }
 
 
-    
+
     /** @test */
     public function if_authed_user_is_subed_to_thread()
     {

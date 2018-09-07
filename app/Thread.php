@@ -70,11 +70,11 @@ class Thread extends Model
 
         // foreach ($this->subscriptions as $key => $subscription) {
         //     if( $subscription->user_id != $reply->user_id){
-        //         $subscription->user->notify(new ThreadWasUpdated($this, $reply,  $reply->owner->name)); 
+        //         $subscription->user->notify(new ThreadWasUpdated($this, $reply,  $reply->owner->name));
         //         // $subscription->notify(new ThreadWasUpdated($this, $reply, $reply->owner->name));
         //     }
         // }
-         
+
         // $this->subscriptions->where('user_id', '!=', $reply->user_id)->each(function ($subscription) use ($reply) {
         //     $subscription->user->notify(new ThreadWasUpdated($this, $reply,  $reply->owner->name));
         // });
@@ -82,22 +82,22 @@ class Thread extends Model
         // $this->subscriptions
         // ->where('user_id', '!=', $reply->user_id)
         // ->each
-        // ->notify($reply); 
+        // ->notify($reply);
 
 
         // event(new ThreadHasNewReply($this, $reply));
         $this->notifySubs($reply);
- 
+
         return $reply;
     }
 
 
     public function notifySubs($reply){
-      
+
         $this->subscriptions
         ->where('user_id', '!=', $reply->user_id)
         ->each
-        ->notify($reply); 
+        ->notify($reply);
     }
 
     public function scopeFilter($query, $filters)

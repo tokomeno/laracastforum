@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use App\Activity;
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ThreadsTest extends TestCase
 {
@@ -189,6 +189,29 @@ class ThreadsTest extends TestCase
         $response = $this->getJson('threads?unanswered=1')->json();
 
         $this->assertCount(1, $response);
+
+    }
+
+
+
+     /** @test */
+    public function a_thrad_notify_subs_when_reply_is_added()
+    {
+
+        Notification::fake();
+
+        $this->signIn();
+        $this->thread->subscribe()->addReply([
+            'body' => 'foobar',
+            'user_id' => create('App\User')->id,
+        ]);
+
+        $endpoint = '/profile/' .auth()->user()->name. '/notifications/';
+
+        $response = $this->getJson($endpoint)->json();
+
+         Notification::assertSentTo(auth()->user(), ThreadWasUpdated::class);
+
 
     }
 
