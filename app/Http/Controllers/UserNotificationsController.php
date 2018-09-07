@@ -15,7 +15,8 @@ class UserNotificationsController extends Controller
 	}
 
 	public function index(User $user, $notificationId = null)
-	{
+	{	
+		 
 		if($user->id != auth()->id()){
 			abort(404);
 		}

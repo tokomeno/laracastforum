@@ -5,23 +5,23 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 // use Illuminate\Contracts\Queue\ShouldQueue;
-// use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ThreadWasUpdated extends Notification
 {
-    use Queueable;
+    // use Queueable;
     protected $reply;
     protected $thread;
+    protected $replyname = 'no name';
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($thread, $reply)
+    public function __construct($thread, $reply, $name)
     {
         $this->thread = $thread;
-        $this->reply = $reply;
-        // dd( $this->reply->owner);
+        $this->reply = $reply; 
     }
 
     /**
@@ -44,8 +44,8 @@ class ThreadWasUpdated extends Notification
      * @return array
      */
     public function toArray($notifiable)
-    {       
-        dd( $this->reply->owner);
+    {  
+       
         return [
             'message' => $this->reply->owner->name . ' replited to ' . $this->thread->title,
             'link' => $this->thread->path()
@@ -54,13 +54,7 @@ class ThreadWasUpdated extends Notification
 
 
 
-
-
-
-
-
-
-
+ 
 
     /**
      * Get the mail representation of the notification.

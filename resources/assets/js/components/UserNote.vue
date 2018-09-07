@@ -8,8 +8,8 @@
     
          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="noteDrop">
                 
-             <a v-for="note in notes" :key href="" class='dropdown-item'>
-                 Foobar
+             <a v-for="note in notes" :key="note.id" :href="note.data.link" class='dropdown-item' @click="markRead(note)">
+                 {{note.data.message}}
              </a>
         </div>
 
@@ -21,11 +21,15 @@
 export default {
     data(){
         return {
-            notes:[]
+            notes:false
         }
     },
-    mounted(){
-
+    methods:{
+        markRead(note){
+            axios.delete('/profile/' + window.App.user.name + '/notifications/' + note.id)
+        }
+    },
+    mounted(){ 
         axios.get('/profile/' + window.App.user.name + '/notifications')
         .then(res => {
             this.notes = res.data

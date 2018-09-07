@@ -65694,8 +65694,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            notes: []
+            notes: false
         };
+    },
+
+    methods: {
+        markRead: function markRead(note) {
+            axios.delete('/profile/' + window.App.user.name + '/notifications/' + note.id);
+        }
     },
     mounted: function mounted() {
         var _this = this;
@@ -65727,8 +65733,21 @@ var render = function() {
           _vm._l(_vm.notes, function(note) {
             return _c(
               "a",
-              { staticClass: "dropdown-item", attrs: { href: "" } },
-              [_vm._v("\n             Foobar\n         ")]
+              {
+                key: note.id,
+                staticClass: "dropdown-item",
+                attrs: { href: note.data.link },
+                on: {
+                  click: function($event) {
+                    _vm.markRead(note)
+                  }
+                }
+              },
+              [
+                _vm._v(
+                  "\n             " + _vm._s(note.data.message) + "\n         "
+                )
+              ]
             )
           })
         )
