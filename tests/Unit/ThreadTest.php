@@ -2,11 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class ThreadTest extends TestCase
 {
@@ -126,5 +125,13 @@ class ThreadTest extends TestCase
         $thread = create('App\Thread');
 
         $this->assertTrue( $thread->hasUpdatesFor(auth()->user() ) );
+
+        auth()->user()->read($thread);
+
+        $this->assertFalse( $thread->hasUpdatesFor(auth()->user() ) );
+
+
     }
+
+
 }

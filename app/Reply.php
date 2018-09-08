@@ -11,6 +11,7 @@ class Reply extends Model
 	protected $guarded = ['id'];
     protected $with = ['owner', 'favorites'];
     protected $appends = ['isFavorited'];
+    protected $touches = ['thread'];
 
     protected static function boot(){
         parent::boot();
