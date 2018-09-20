@@ -98,4 +98,24 @@ class ParticipateForumTest extends TestCase
         $this->post("/replies/{$reply->id}", ['body' => 'updated']);
         $this->assertDatabaseHas('replies', ['id' => $reply->id, 'body' => 'updated']);
     }
+
+
+
+
+    /** @test */
+    public function replies_containes_span_may_not_added()
+    {
+        $this->expectException(\Exception::class);
+
+        $this->signIn();
+
+        $thread = create('App\Thread');
+
+        $reply = make('App\Reply', [
+            'body' => 'Yahoo Customer Support'
+        ]);
+
+        $this->post($thread->path(). '/replies', $reply->toArray());
+
+    }
 }

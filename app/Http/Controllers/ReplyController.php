@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Thread;
 use App\Reply;
+use App\Inspections\Spam;
+use App\Thread;
+use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
@@ -18,13 +19,16 @@ class ReplyController extends Controller
         return $thread->replies()->paginate(10);
     }
 
-    public function store($channel, Thread $thread, Request $request)
+    public function store($channel, Thread $thread, Request $request, Spam $spam)
     {
+
+        $spam->detect($request->body);
+
     	$reply = $thread->addReply([
     		'body' => request('body'),
     		'user_id' => auth()->id()
         ]);
-        
+
         if(request()->ajax()){
             return $reply->load('owner');
          }
