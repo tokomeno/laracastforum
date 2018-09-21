@@ -30708,7 +30708,8 @@ window.Vue.prototype.authorize = function (handler) {
 
 window.events = new Vue();
 window.flash = function (message) {
-  return window.events.$emit('flash', message);
+  var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'success';
+  return window.events.$emit('flash', { message: message, level: level });
 };
 
 /**
@@ -64329,19 +64330,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['message'],
     data: function data() {
         return {
             body: '',
-            show: false
+            show: false,
+            level: 'success'
         };
     },
 
     methods: {
-        flash: function flash(message) {
-            this.body = message;
+        flash: function flash(data) {
+            this.body = data.message;
+            this.level = data.level;
             this.show = true;
 
             this.hide();
@@ -64351,6 +64356,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             setTimeout(function () {
                 _this.show = false;
+                // this.level = success 
             }, 3000);
         }
     },
@@ -64360,8 +64366,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.message) {
             this.flash(message);
         }
-        window.events.$on('flash', function (message) {
-            _this2.flash(message);
+        window.events.$on('flash', function (data) {
+            _this2.flash(data);
         });
     }
 });
@@ -64380,9 +64386,10 @@ var render = function() {
       directives: [
         { name: "show", rawName: "v-show", value: _vm.show, expression: "show" }
       ],
-      staticClass: "alert alert-success alert-flash"
+      staticClass: "alert alert-flash",
+      class: "alert-" + _vm.level
     },
-    [_c("strong", [_vm._v("Success!")]), _vm._v(" " + _vm._s(_vm.body) + ".\n")]
+    [_vm._v("\n    " + _vm._s(_vm.body) + ".\n")]
   )
 }
 var staticRenderFns = []
@@ -64692,15 +64699,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   methods: {
     update: function update() {
+      var _this = this;
+
       axios.post('/replies/' + this.data.id, {
         body: this.body
+      }).then(function () {
+        _this.editing = false;
+        flash('reply has been updated');
+      }).catch(function (errors) {
+        flash(errors.response.data, 'danger');
       });
-      // .then(() => {
-      // 	this.editing = false
-      // 	flash('reply has been updated')
-      // })
-      this.editing = false;
-      flash('reply has been updated');
     },
     destroy: function destroy() {
       axios.delete('/replies/' + this.data.id);
@@ -64717,13 +64725,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.App.signedIn;
     },
     canUpdate: function canUpdate() {
-      var _this = this;
+      var _this2 = this;
 
       // return this.data.owner.id == window.App.user.id;
       return this.authorize(function (user) {
         // console.log(user)
         // console.log(this.data.owner.id)
-        return user.id == _this.data.owner.id;
+        return user.id == _this2.data.owner.id;
       });
     },
     ago: function ago() {
@@ -65331,7 +65339,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65373,6 +65381,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.body = '';
                 flash('Reply has been added');
                 _this.$emit('created', data.data);
+            }).catch(function (error) {
+                console.log(error.response);
+                flash(error.response.data, 'danger');
             });
         }
     },

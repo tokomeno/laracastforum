@@ -57,12 +57,13 @@
         		axios.post('/replies/' + this.data.id, {
         			body:this.body
             })
-            // .then(() => {
-        		// 	this.editing = false
-        		// 	flash('reply has been updated')
-            // })
-            	this.editing = false
+            .then(() => {
+        			this.editing = false
         			flash('reply has been updated')
+            })
+            .catch(errors => {
+              flash(errors.response.data, 'danger')
+            })
         	},
         	destroy(){
         		axios.delete('/replies/' + this.data.id)

@@ -28,6 +28,10 @@
                     flash('Reply has been added')
                     this.$emit('created', data.data)
                 })
+                 .catch(error => {
+                    console.log(error.response)
+                    flash(error.response.data, 'danger')
+                })
             }
 
        },

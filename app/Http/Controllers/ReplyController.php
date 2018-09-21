@@ -19,21 +19,27 @@ class ReplyController extends Controller
         return $thread->replies()->paginate(10);
     }
 
-    public function store($channel, Thread $thread, Request $request, Spam $spam)
+    public function store($channel, Thread $thread, Request $request)
     {
 
-        $spam->detect($request->body);
-
+       try {
+        $this->validateReply();
     	$reply = $thread->addReply([
     		'body' => request('body'),
     		'user_id' => auth()->id()
         ]);
+       } catch( \Exception $e){
+          return response('Sorry reply has spam', 422); 
+       }
 
-        if(request()->ajax()){
+
+
+
+        // if(request()->ajax()){
             return $reply->load('owner');
-         }
+        //  }
 
-    	return redirect()->back();
+    	// return redirect()->back();
     }
 
     public function destroy(Reply $reply)
@@ -48,10 +54,21 @@ class ReplyController extends Controller
 
      public function update(Reply $reply)
     {
-        $this->authorize('update', $reply);
-        $reply->update( request(['body']) );
+        try{
+            $this->validateReply(); 
+            $reply->update( request(['body']) );
+
+        } catch( \Exception $e){
+            return response('Sorry reply has spam', 422); 
+        }
 
         return redirect()->back();
+    }
+
+
+    protected function validateReply(){
+        $this->validate(request(), ['body' => 'required']);
+        resolve(Spam::class)->detect(request('body'));
     }
 }
 
