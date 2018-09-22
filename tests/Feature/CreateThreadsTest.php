@@ -50,6 +50,7 @@ class CreateThreadsTest extends TestCase
     /** @test */
     public function thread_requires_title()
     {
+        $this->withExceptionHandling();
         $this->expectException('Illuminate\Validation\ValidationException');
          $this->signIn();
         $thread = make('App\Thread', ['channel_id' => 8000]);

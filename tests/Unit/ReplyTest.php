@@ -2,11 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 
 class ReplyTest extends TestCase
 {
@@ -24,5 +23,21 @@ class ReplyTest extends TestCase
     {
         $reply = factory('App\Reply')->create();
         $this->assertInstanceOf('App\User', $reply->owner);
+    }
+
+    /** @test */
+    public function it_knows_if_it_was_just_published()
+    {
+
+        $reply = factory('App\Reply')->create();
+
+        $this->assertTrue( $reply->wasJustPublished() );
+
+
+        $reply = factory('App\Reply')->create([
+            'created_at' => Carbon::now()->subWeek()
+        ]);
+
+        $this->assertFalse( $reply->wasJustPublished() );
     }
 }

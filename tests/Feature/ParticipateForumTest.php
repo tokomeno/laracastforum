@@ -105,7 +105,9 @@ class ParticipateForumTest extends TestCase
     /** @test */
     public function replies_containes_span_may_not_added()
     {
-        $this->expectException(\Exception::class);
+        // $this->expectException(\Exception::class);
+
+        $this->withExceptionHandling();
 
         $this->signIn();
 
@@ -115,7 +117,28 @@ class ParticipateForumTest extends TestCase
             'body' => 'Yahoo Customer Support'
         ]);
 
-        $this->post($thread->path(). '/replies', $reply->toArray());
+        $this->json('post', $thread->path(). '/replies', $reply->toArray())
+        ->assertStatus(422);
+
+    }
+
+
+    /** @test */
+    public function user_may_not_add_replies_more_than_once()
+    {
+        $this->signIn();
+
+
+        $thread = factory('App\Thread')->create();
+
+        $reply = factory('App\Reply')->make();
+
+       $res = $this->post($thread->path() . '/replies', $reply->toArray())
+        ->assertStatus(201) ;
+
+
+        $this->post($thread->path() . '/replies', $reply->toArray())
+        ->assertStatus(429);
 
     }
 }
