@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use App\Inspections\Spam;
+use App\Notifications\YouWereMentoined;
 use App\Reply;
 use App\Rules\Spamfree;
 use App\Thread;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\CreatePostRequest;
 
 class ReplyController extends Controller
 {
@@ -33,11 +35,22 @@ class ReplyController extends Controller
         //   return response('To much replies bro :)', 422);
         // }
 
-        return $reply = $thread->addReply([
+        $reply = $thread->addReply([
          'body' => request('body'),
          'user_id' => auth()->id()
-        ])->load('owner');
+        ]);
 
+        preg_match_all('/\@([^\s\/.]+)/', $reply->body, $matches);
+
+        $names = $matches[1];
+
+        foreach ($names as $name) {
+            $user = User::where('name', $name)->first();
+
+            if($user){
+                $user->notify(new YouWereMentoined($reply));
+            }
+        }
      //   try {
     	// $reply = $thread->addReply([
     	// 	'body' => request('body'),
@@ -46,7 +59,7 @@ class ReplyController extends Controller
      //   } catch( \Exception $e){
      //      return response('Sorry reply has spam', 422);
      //   }
-        // return $reply->load('owner');
+        return $reply->load('owner');
     }
 
     public function destroy(Reply $reply)

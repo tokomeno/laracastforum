@@ -4,22 +4,23 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-// use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ThreadWasUpdated extends Notification
+class YouWereMentoined extends Notification
 {
-    // use Queueable;
     protected $reply;
-    protected $thread;
+
+    // use Queueable;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($thread, $reply)
+    public function __construct($reply)
     {
-        $this->thread = $thread;
+        //
         $this->reply = $reply;
     }
 
@@ -33,27 +34,6 @@ class ThreadWasUpdated extends Notification
     {
         return ['database'];
     }
-
-
-
-     /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toArray($notifiable)
-    {
-
-        return [
-            'message' => $this->reply->owner->name . ' replited to ' . $this->thread->title,
-            'link' => $this->thread->path()
-        ];
-    }
-
-
-
-
 
     /**
      * Get the mail representation of the notification.
@@ -69,5 +49,17 @@ class ThreadWasUpdated extends Notification
     //                 ->line('Thank you for using our application!');
     // }
 
-
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toArray($notifiable)
+    {
+        return [
+            'message' => $this->reply->owner->name . ' mentoined you to ' . $this->reply->title,
+            'link' => $this->reply->thread->path()
+        ];
+    }
 }

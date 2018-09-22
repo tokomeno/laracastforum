@@ -3,7 +3,7 @@
         <div v-for="(item, index) in items" :key="item.id">
             <reply @deleted="remove(index)" :data="item"></reply>
         </div>
-          <new-reply @created="add"> </new-reply>
+        <new-reply @created="add"> </new-reply>
 
         <paginator @changePage="fetch" :dataset="dataSet" ></paginator>
     </div>
