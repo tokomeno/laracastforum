@@ -19,15 +19,21 @@ class NotifyMentoinedUsers
      */
     public function handle(ThreadReceivedNewReply $event)
     {
-         // preg_match_all('/\@([^\s\/.]+)/', $event->reply->body, $matches);
+        // preg_match_all('/\@([^\s\/.]+)/', $event->reply->body, $matches);
 
         $mentionedUsers = $event->reply->mentionedUsers();
-        foreach ($mentionedUsers as $name) {
-            $user = User::where('name', $name)->first();
 
-            if($user){
-                $user->notify(new YouWereMentoined($event->reply));
-            }
-        }
+        User::whereIn('name', $mentionedUsers)->get()
+        ->each(function($user) use ($event){
+            $user->notify(new YouWereMentoined($event->reply));
+        });
+
+        // foreach ($mentionedUsers as $name) {
+        //     $user = User::where('name', $name)->first();
+
+        //     if($user){
+        //         $user->notify(new YouWereMentoined($event->reply));
+        //     }
+        // }
     }
 }

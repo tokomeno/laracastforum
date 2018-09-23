@@ -62,6 +62,7 @@ class ReplyController extends Controller
         // } catch( \Exception $e){
         //     return response('Sorry reply has spam', 422);
         // }
+        $this->authorize('update',$reply);
 
         $this->validate(request(), ['body' => ['required', new Spamfree] ]);
         $reply->update( request(['body']) );
