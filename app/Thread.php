@@ -1,11 +1,10 @@
 <?php
 
 namespace App;
-
-use App\Activity;
-use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
-use App\Events\ThreadHasNewReply;
+use App\Notifications\ThreadWasUpdated;
+use App\Events\ThreadReceivedNewReply;
+use App\Activity; 
 
 class Thread extends Model
 {
@@ -57,55 +56,32 @@ class Thread extends Model
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * This class event which one has two listeners
+     *
+     * @var string
+     **/
     public function addReply($reply)
     {
-      // $reply = $this->replies()->create($reply);
-      // $this->increment('replies_count');
-      // return $reply;
+        // $this->increment('replies_count');
         $reply = $this->replies()->create($reply);
 
         // $this->subscriptions->filter(function($sub) use ($reply){
         //     return $sub->user_id != $reply->user_id;
         // })->each->notify(new ThreadWasUpdated($this, $reply));
-
-        // foreach ($this->subscriptions as $key => $subscription) {
-        //     if( $subscription->user_id != $reply->user_id){
-        //         $subscription->user->notify(new ThreadWasUpdated($this, $reply,  $reply->owner->name));
-        //         // $subscription->notify(new ThreadWasUpdated($this, $reply, $reply->owner->name));
-        //     }
-        // }
-
-        // $this->subscriptions->where('user_id', '!=', $reply->user_id)->each(function ($subscription) use ($reply) {
-        //     $subscription->user->notify(new ThreadWasUpdated($this, $reply,  $reply->owner->name));
-        // });
-
+ 
         // $this->subscriptions
         // ->where('user_id', '!=', $reply->user_id)
         // ->each
         // ->notify($reply);
-
-
-        // event(new ThreadHasNewReply($this, $reply));
-        $this->notifySubs($reply);
-
+        event(new ThreadReceivedNewReply($reply));
         return $reply;
-    }
-
-
-    public function notifySubs($reply){
-
-        $this->subscriptions
-        ->where('user_id', '!=', $reply->user_id)
-        ->each
-        ->notify($reply);
     }
 
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
     }
-
-
 
     public function unsubscribe($userId = null)
     {
@@ -140,4 +116,12 @@ class Thread extends Model
         $key = auth()->user()->visitedThreadCacheKey($this);
         return $this->updated_at > cache($key);
     }
+
+
+    //  public function notifySubs($reply){
+    //     $this->subscriptions
+    //     ->where('user_id', '!=', $reply->user_id)
+    //     ->each
+    //     ->notify($reply);
+    // }
 }

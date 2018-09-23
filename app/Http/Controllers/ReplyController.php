@@ -23,42 +23,23 @@ class ReplyController extends Controller
     {
         return $thread->replies()->paginate(10);
     }
+
+
     /**
-     *  $this->validate(request(), ['body' => ['required', new Spamfree] ]); instead of this
-     *  validate request in CreatePostRequest class
-     * @var string
-     **/
+     *  $this->validate(request(), ['body' => ['required', new Spamfree] ]); instead of this  validate
+     *  request in CreatePostRequest class in addReply we fire event reply
+     *  has new event and we notify users
+     *  @return App\Reply
+    **/
     public function store($channel, Thread $thread, Request $request, CreatePostRequest $form)
     {
-
         // if(Gate::denies('create', new Reply)){
         //   return response('To much replies bro :)', 422);
         // }
-
         $reply = $thread->addReply([
          'body' => request('body'),
          'user_id' => auth()->id()
         ]);
-
-        preg_match_all('/\@([^\s\/.]+)/', $reply->body, $matches);
-
-        $names = $matches[1];
-
-        foreach ($names as $name) {
-            $user = User::where('name', $name)->first();
-
-            if($user){
-                $user->notify(new YouWereMentoined($reply));
-            }
-        }
-     //   try {
-    	// $reply = $thread->addReply([
-    	// 	'body' => request('body'),
-    	// 	'user_id' => auth()->id()
-     //    ]);
-     //   } catch( \Exception $e){
-     //      return response('Sorry reply has spam', 422);
-     //   }
         return $reply->load('owner');
     }
 
