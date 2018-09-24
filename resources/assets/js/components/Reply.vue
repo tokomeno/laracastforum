@@ -1,8 +1,8 @@
-<template> 
+<template>
   <div class="card mt-3" :id="'reply-'+data.id">
     <div class="card-header">
       <div class="d-flex">
-        <a :href="'/profile/'+data.owner.name" v-text="data.owner.name"> 
+        <a :href="'/profile/'+data.owner.name" v-text="data.owner.name">
 		</a> said
       {{ago}} ago
 
@@ -14,9 +14,10 @@
 
     </div>
     <div class="card-body">
-        <div v-if='!editing' v-text="body">
-            {{data.body}}
+
+        <div v-if='!editing' v-html="body">
         </div>
+
         <div v-else>
           <div class="form-group">
           <textarea class='form-control' v-model="body"></textarea>
@@ -36,7 +37,7 @@
     <!-- @endcan -->
 
   </div>
- 
+
 </template>
 
 <script>
@@ -90,7 +91,7 @@
           ago(){
             return moment(this.data.created_at).fromNow()
           }
-        }, 
+        },
      }
 </script>
 
