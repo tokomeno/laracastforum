@@ -20,6 +20,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- Styles -->
+    <link href="{{ asset('css/jquery.atwho.css') }}" rel="stylesheet">
+
      <!-- Scripts -->
     <script>
         window.App = {!! json_encode([

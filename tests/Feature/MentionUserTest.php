@@ -32,4 +32,16 @@ class MentionUserTest extends TestCase
 
        	$this->assertCount(1, $toko->notifications );
     }
+
+    /** @test */
+    public function it_can_fetch_all_mentioned_users_with_given_character()
+    {
+      factory('App\User')->create(['name' => 'tokomeno']);
+      factory('App\User')->create(['name' => 'johndoe']);
+      factory('App\User')->create(['name' => 'johndoe2']);
+
+        $res = $this->json('GET', '/api/users', ['name' => 'john']);
+
+        $this->assertCount(2, $res->json());
+    }
 }
