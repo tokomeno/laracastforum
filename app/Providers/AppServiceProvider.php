@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-\Debugbar::disable();
+// \Debugbar::disable();
         \View::composer(['threads.create', 'layouts.app'], function($view){
             $channels = \Cache::rememberForever('channels', function(){
                 return \App\Channel::all();
