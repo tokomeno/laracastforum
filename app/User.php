@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'avatar_path'
     ];
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
 
-        public function getRouteKeyName()
+    public function getRouteKeyName()
     {
         return 'name';
     }
@@ -44,6 +44,12 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    /**
+     * cache user.id.thread.id to check if user
+     * has read this thread already
+     * @param App\Thread
+     * @return void
+     **/
     public function read($thread)
     {
 
@@ -61,6 +67,16 @@ class User extends Authenticatable
     public function lastReply()
     {
         return $this->hasOne(Reply::class)->latest();
+    }
+
+    public function getAvatarPathAttribute($value)
+    {
+        return asset('storage/' .$value ?: '/storage/avatars/default.jpg');
+    }
+
+    public function avatar()
+    {
+        return asset('storage/' .$this->avatar_path ?: '/storage/avatars/default.jpg');
     }
 
 }

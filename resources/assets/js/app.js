@@ -9,7 +9,7 @@ window.Vue = require('vue');
 
 window.Vue.prototype.authorize = function(handler){
     user = window.App.user;
-    if(!user) return false
+    if(! user) return false
     return handler(user)
 }
 
@@ -28,6 +28,8 @@ Vue.component('thread-view', require('./components/pages/Thread.vue'));
 
 
 Vue.component('user-note', require('./components/UserNote.vue'));
+
+Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 // Vue.component('replies', require('./components/replies.vue'));
 // Vue.component('reply', require('./components/Reply.vue'));
 // Vue.component('favorite', require('./components/Favorite.vue'));

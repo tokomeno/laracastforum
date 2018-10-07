@@ -85,7 +85,7 @@
             return this.authorize(user => {
               // console.log(user)
               // console.log(this.data.owner.id)
-              return user.id == this.data.owner.id }
+                  return user.id == this.data.owner.id }
               )
           },
           ago(){

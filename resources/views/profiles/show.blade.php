@@ -3,11 +3,18 @@
 @section('content')
 
 <div class="container">
+{{-- @can('update', $profileUser) --}}
+
+  <avatar-form :user="{{$profileUser}}"></avatar-form>
 
 <div class="page-header d-flex">
 	<h1>
 		{{$profileUser->name}}
 	</h1>
+
+
+
+
 	<small>
 		Since {{$profileUser->created_at->diffForHumans() }}
 	</small>
