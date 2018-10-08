@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Trending;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Redis;
@@ -9,12 +10,14 @@ use Tests\TestCase;
 
 class TrendingThreadsTest extends TestCase
 {
+  public $trending;
+
    use DatabaseMigrations;
 
    	protected function setUp(){
    		parent::setUp();
-   		Redis::del('trending_threads');
-
+      $this->trending = new Trending();
+      $this->trending->reset();
    	}
 
      /** @test */
@@ -22,12 +25,12 @@ class TrendingThreadsTest extends TestCase
     {
     	$thread = create('App\Thread');
 
-    	$this->assertCount(0, Redis::zrevrange('trending_threads', 0, -1) );
+    	$this->assertCount(0, Redis::zrevrange('testing_trending_threads', 0, -1) );
         $this->call('GET', $thread->path());
 
-        $this->assertCount(1, Redis::zrevrange('trending_threads', 0, -1) );
+        $this->assertCount(1, Redis::zrevrange('testing_trending_threads', 0, -1) );
 
-        dd(Redis::zrevrange('trending_threads', 0, -1));
+        // dd(Redis::zrevrange('testing_trending_threads', 0, -1));
 
     }
 }
