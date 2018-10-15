@@ -27,7 +27,7 @@ abstract class Filters
  		 * @return method
  		 **/
  		// dd($this->request->only($this->filters) );
- 		foreach ($this->request->only($this->filters) as $key => $filter) {;
+ 		foreach ($this->request->only($this->filters) as $key => $filter) {
  			if($this->hasFilter($key)){
  				$this->$key($this->request->filter);
  			}

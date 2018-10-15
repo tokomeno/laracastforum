@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Redis;
 use Tests\TestCase;
 
 class ThreadTest extends TestCase
@@ -18,7 +19,6 @@ class ThreadTest extends TestCase
 
       public function setUp(){
         parent::setUp();
-
         $this->thread = factory('App\Thread')->create();
 
     }
@@ -133,5 +133,43 @@ class ThreadTest extends TestCase
 
     }
 
+
+    /** @test */
+    public function a_thread_records_each_visit()
+    {
+        $thread = factory('App\Thread')->create();
+
+        $thread->visits()->reset();
+
+        $this->assertSame(0, $thread->visits()->count() );
+
+
+        $thread->visits()->record();
+
+        $this->assertEquals(1, $thread->visits()->count() );
+
+        $thread->visits()->record();
+
+        $this->assertEquals(2, $thread->visits()->count() );
+    }
+
+
+      /** @test */
+    public function auth_user_has_to_confirm_email_boefre_publish_thread()
+    {
+        $this->publishThread()
+            ->assertRedirect('/threads')
+            ->assertSessionHas('flash');
+    }
+
+
+
+    protected function publishThread($override = [])
+    {
+        $this->withExceptionHandling()->signIn();
+        $thread = factory('App\Thread')->create($override);
+
+        return $this->post('/threads', $thread->toArray());
+    }
 
 }

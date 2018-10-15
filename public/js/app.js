@@ -64339,18 +64339,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['message'],
     data: function data() {
         return {
-            body: '',
+            body: this.message,
             show: false,
             level: 'success'
         };
     },
 
     methods: {
-        flash: function flash(data) {
-            this.body = data.message;
-            this.level = data.level;
-            this.show = true;
+        flash: function flash() {
+            var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
+            if (data) {
+                this.body = data.message;
+                this.level = data.level;
+            }
+            this.show = true;
             this.hide();
         },
         hide: function hide() {
@@ -64358,7 +64361,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             setTimeout(function () {
                 _this.show = false;
-                // this.level = success 
+                // this.level = success
             }, 3000);
         }
     },
@@ -64366,7 +64369,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this2 = this;
 
         if (this.message) {
-            this.flash(message);
+            this.flash();
         }
         window.events.$on('flash', function (data) {
             _this2.flash(data);

@@ -17,6 +17,7 @@ class ThreadController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only('store', 'create', 'destroy');
+        $this->middleware('must-be-confirmed')->only('store');
     }
     /**
      * Display a listing of the resource.
@@ -65,6 +66,8 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+
+
        $this->validate($request, [
            'title' => ['required', new Spamfree],
             'body' => ['required', new Spamfree],
@@ -94,6 +97,8 @@ class ThreadController extends Controller
         }
 
         $trending->push($thread);
+
+        $thread->visits()->record();
 
 
         return view('threads.show', compact('thread'));

@@ -1,6 +1,6 @@
 <template>
-    <div v-show="show" 
-    class="alert alert-flash" 
+    <div v-show="show"
+    class="alert alert-flash"
     :class="'alert-' + level">
         {{body}}.
     </div>
@@ -10,29 +10,30 @@
         props: ['message'],
         data() {
             return {
-                body: '',
+                body: this.message,
                 show: false,
                 level:'success'
             }
         },
         methods:{
-            flash(data){
-                this.body = data.message
-                this.level = data.level
+            flash(data = null){
+                if(data){
+                    this.body = data.message
+                    this.level = data.level
+                }
                 this.show = true
-
                 this.hide()
             },
             hide(){
                 setTimeout(() => {
                     this.show = false
-                    // this.level = success 
+                    // this.level = success
                 }, 3000)
             }
         },
         created(){
             if(this.message){
-                this.flash(message)
+                this.flash()
             }
             window.events.$on('flash', data => {
                 this.flash(data)

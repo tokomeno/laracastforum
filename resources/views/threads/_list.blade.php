@@ -20,6 +20,9 @@
          		<div class="body"> {{$thread->body}} </div>
          	</article>
         </div>
+        <div class="card-footer">
+          {{ $thread->visits()->count() }} Visits
+        </div>
   </div>
 @empty
 <h3>There are no relevant info for this time</h3>

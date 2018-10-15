@@ -1,10 +1,11 @@
 <?php
 
 namespace App;
-use Illuminate\Database\Eloquent\Model;
-use App\Notifications\ThreadWasUpdated;
+use App\Activity;
 use App\Events\ThreadReceivedNewReply;
-use App\Activity; 
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Redis;
 
 class Thread extends Model
 {
@@ -69,7 +70,7 @@ class Thread extends Model
         // $this->subscriptions->filter(function($sub) use ($reply){
         //     return $sub->user_id != $reply->user_id;
         // })->each->notify(new ThreadWasUpdated($this, $reply));
- 
+
         // $this->subscriptions
         // ->where('user_id', '!=', $reply->user_id)
         // ->each
@@ -118,10 +119,9 @@ class Thread extends Model
     }
 
 
-    //  public function notifySubs($reply){
-    //     $this->subscriptions
-    //     ->where('user_id', '!=', $reply->user_id)
-    //     ->each
-    //     ->notify($reply);
-    // }
+    public function visits()
+    {
+        return new Visits($this);
+    }
+
 }
