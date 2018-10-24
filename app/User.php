@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path'
+        'confirmed', 'name', 'email', 'password', 'avatar_path', 'confirmation_token'
     ];
 
     /**
@@ -26,6 +26,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token', 'email'
+    ];
+
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
 
