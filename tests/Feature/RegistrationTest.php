@@ -22,14 +22,15 @@ class RegistrationTest extends TestCase
 	{
 		Mail::fake();
 	    event(new Registered(create('App\User')));
-
-	    Mail::assertSent(ConfirmEmail::class);
+// assertSent
+	    Mail::assertQueued(ConfirmEmail::class);
 
 	}
 
 	/** @test */
 	public function users_can_confirm_email_adresses()
 	{
+		Mail::fake();
 	    $this->post('/register', [
 	    	'name' => 'Toko',
 	    	'email' => 'toko@gmail.com',

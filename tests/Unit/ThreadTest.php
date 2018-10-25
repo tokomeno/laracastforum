@@ -23,11 +23,11 @@ class ThreadTest extends TestCase
 
     }
     /** @test */
-    public function a_thread_can_make_string_path()
+    public function a_thread_has_a_path()
     {
 
       $thread = factory('App\Thread')->create();
-        $this->assertEquals('/threads/'. $thread->channel->slug .'/' . $thread->id, $thread->path() );
+        $this->assertEquals('/threads/'. $thread->channel->slug .'/' . $thread->slug, $thread->path() );
     }
 
     /** @test */
@@ -157,7 +157,11 @@ class ThreadTest extends TestCase
       /** @test */
     public function auth_user_has_to_confirm_email_boefre_publish_thread()
     {
-        $this->publishThread()
+
+        $user = factory('App\User')->create(['confirmed' => false]);
+        $this->withExceptionHandling()->signIn($user);
+        $thread = factory('App\Thread')->make();
+       $this->post('/threads', $thread->toArray())
             ->assertRedirect('/threads')
             ->assertSessionHas('flash');
     }

@@ -13,7 +13,8 @@ class RegisterConfirmationController extends Controller
    		User::where('confirmation_token', request('token'))
    			->firstOrFail()
    			->update([
-   				'confirmed' => true
+   				'confirmed' => true,
+   				'confirmation_token' => null,
    			]);
 
    		return redirect('/threads')

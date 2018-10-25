@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Activity;
 use App\Notifications\ThreadWasUpdated;
+use App\Thread;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
@@ -215,6 +216,19 @@ class ThreadsTest extends TestCase
 
     }
 
+    /** @test */
+    public function thread_requires_unique_slug()
+    {
+        $this->signIn();
+
+        $thread = factory('App\Thread')->create(['title' => 'foo title']);
+
+        $this->assertEquals( $thread->fresh()->slug, 'foo-title');
+
+        $thread =  $this->postJson('/threads', $thread->toArray() )->json();
+
+        $this->assertEquals( $thread['slug'], 'foo-title-'.$thread['id'] );
+    }
 
 
 }

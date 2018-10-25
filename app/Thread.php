@@ -14,6 +14,21 @@ class Thread extends Model
     protected $with = ['creator', 'channel'];
     // protected $appends = ['isSubscribedTo'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function setSlugAttribute($value)
+    {
+        $slug = str_slug($value);
+        if( static::whereSlug($slug = str_slug($value))->exists() ){
+            $slug = $slug.'-'.$this->id;
+        }
+        $this->attributes['slug'] = $slug;
+    }
+
+
     protected static function boot()
     {
         parent::boot();
@@ -28,6 +43,10 @@ class Thread extends Model
             });
         });
 
+        static::created(function ($thread){
+           $thread->update(['slug' => $thread->title]);
+        });
+
         // static::created(function ($thread){
         //    $thread->recordActivity('created', $thread);
         // });
@@ -38,7 +57,7 @@ class Thread extends Model
 
     public function path()
     {
-    	return '/threads/' . $this->channel->slug . '/' . $this->id;
+    	return '/threads/' . $this->channel->slug . '/' . $this->slug;
     }
 
     public function replies(){
