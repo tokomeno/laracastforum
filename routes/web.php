@@ -34,12 +34,14 @@ Route::post('/threads/{channel}/{thread}/replies', 'ReplyController@store'); // 
 
 Route::get('/threads/{channel}/{thread}/replies', 'ReplyController@index');
 
-Route::delete('/replies/{reply}', 'ReplyController@destroy');
+Route::delete('/replies/{reply}', 'ReplyController@destroy')->name('replies.delete');
 Route::post('/replies/{reply}', 'ReplyController@update');
 
 // store favorites
 Route::post('/replies/{reply}/favorites', 'FavoriteController@store');
 Route::delete('/replies/{reply}/favorites', 'FavoriteController@destroy');
+
+Route::post('/replies/{reply}/best', 'BestReplyController@store');
 
 
 

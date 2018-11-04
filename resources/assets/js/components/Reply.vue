@@ -1,6 +1,6 @@
 <template>
   <div class="card mt-3" :id="'reply-'+data.id">
-    <div class="card-header">
+    <div class="card-header" :class="{'badge-dark' : isBest}">
       <div class="d-flex">
         <a :href="'/profile/'+data.owner.name" v-text="data.owner.name">
 		</a> said
@@ -30,9 +30,14 @@
     </div>
 
 <!-- @can('update', $reply) -->
-      <div class="card-footer justify-content-start" v-if="canUpdate">
-         <button @click="destroy" class="btn btn-sm btn-danger">Delete</button>
-        <button class="btn btn-sm" @click="editing = true">Edit</button>
+      <div class="card-footer justify-content-start">
+        <!-- <div  v-if="canUpdate"> -->
+        <div  v-if="authorize('updateReply', reply)">
+            <button @click="destroy" class="btn btn-sm btn-danger">Delete</button>
+            <button class="btn btn-sm" @click="editing = true">Edit</button>
+        </div>
+
+         <button class="btn btn-sm btn-info ml-auto" @click="markBestReply" >Best Reply</button>
       </div>
     <!-- @endcan -->
 
@@ -48,10 +53,19 @@
 		props: ['data'],
         data() {
             return {
+                reply:this.data,
 				        id:this.data.id,
                 editing: false,
-                body:this.data.body
+                body:this.data.body,
+                isBest: this.data.isBest,
             }
+        },
+        created(){
+          window.events.$on('best-reply-selected', data => {
+            if(data.id != this.id){
+              this.isBest = false
+            }
+          })
         },
         methods:{
         	update(){
@@ -74,20 +88,26 @@
             // })
             this.editing = false
               this.$emit('deleted', this.data.id)
-        	}
+        	},
+          markBestReply(){
+            axios.post(`/replies/${this.reply.id}/best`)
+            this.isBest = ! this.isBest
+
+            window.events.$emit('best-reply-selected', this.data)
+          }
         },
         computed:{
           signedIn(){
             return window.App.signedIn;
           },
-          canUpdate(){
-            // return this.data.owner.id == window.App.user.id;
-            return this.authorize(user => {
-              // console.log(user)
-              // console.log(this.data.owner.id)
-                  return user.id == this.data.owner.id }
-              )
-          },
+          // canUpdate(){
+          //   // return this.data.owner.id == window.App.user.id;
+          //   return this.authorize(user => {
+          //     // console.log(user)
+          //     // console.log(this.data.owner.id)
+          //         return user.id == this.data.owner.id }
+          //     )
+          // },
           ago(){
             return moment(this.data.created_at).fromNow()
           }

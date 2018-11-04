@@ -11,7 +11,7 @@
 
                   <div class="card-body">
                       <article>
-                         <img src="{{ $thread->creator->avatar() }}" class="mr-2 mb-1" width="30" height="30">
+                         <img src="{{ $thread->creator->avatar_path }}" class="mr-2 mb-1" width="30" height="30">
                         <a href="{{ route('profile', $thread->creator) }}">{{$thread->creator->name}}</a>
                         <h4> {{$thread->title}} </h4>
                         <div class="body"> {{$thread->body}} </div>

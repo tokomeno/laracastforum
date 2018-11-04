@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ReplyTest extends TestCase
+class UnReplyTest extends TestCase
 {
     /**
      * A basic test example.
@@ -62,5 +62,18 @@ class ReplyTest extends TestCase
         ]);
 
         $this->assertEquals($reply->body, "Hello <a href='/profiles/Toko'>@Toko</a>.");
+    }
+
+    /** @test */
+    public function it_knows_if_is_best_reply()
+    {
+
+        $reply = factory('App\Reply')->create();
+
+        $this->assertFalse($reply->isBest());
+
+        $reply->thread->update(['best_reply_id' => $reply->id]);
+
+        $this->assertTrue($reply->fresh()->isBest());
     }
 }

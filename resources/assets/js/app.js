@@ -7,11 +7,25 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-window.Vue.prototype.authorize = function(handler){
-    user = window.App.user;
+// window.Vue.prototype.authorize = function(handler){
+//     user = window.App.user;
+//     if(! user) return false
+//     return handler(user)
+// }
+let authorizations = require('./authorization')
+console.log(authorizations)
+
+ Vue.prototype.authorize = function(...params){
+ 	user = window.App.user;
     if(! user) return false
-    return handler(user)
-}
+
+    if(typeof params[0] === 'string'){
+    	return authorizations.updateReply(params[1])
+    }
+
+   	return params[0](window.App.user);
+
+ }
 
 window.events = new Vue();
 window.flash = ( message, level = 'success' ) => window.events.$emit('flash', { message, level })

@@ -15,13 +15,15 @@ class ContentTableSeeder extends Seeder
         \App\User::create([
             'name' => 'test',
             'email' => 'test@gmail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'confirmed' => true
         ]);
 
          \App\User::create([
             'name' => 'toka',
             'email' => 'tokamenabde@gmail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'confirmed' => true
         ]);
 
          $th = factory('App\Thread', 10)->create()
