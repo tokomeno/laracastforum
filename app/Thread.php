@@ -12,6 +12,9 @@ class Thread extends Model
     use RecordActivity;
     protected $guarded = ['id'];
     protected $with = ['creator', 'channel'];
+    protected $casts = [
+        'locked' => 'boolean'
+    ];
     // protected $appends = ['isSubscribedTo'];
 
     public function getRouteKeyName()
@@ -141,6 +144,12 @@ class Thread extends Model
     public function visits()
     {
         return new Visits($this);
+    }
+
+
+    public function lock()
+    {
+        $this->update(['locked' => 1]);
     }
 
 }

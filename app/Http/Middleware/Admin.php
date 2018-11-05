@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class RedirectIfEmailNotConfirmed
+class Admin
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,13 @@ class RedirectIfEmailNotConfirmed
      */
     public function handle($request, Closure $next)
     {
-        if(! $request->user()->confirmed){
-            return redirect('/threads')
-            ->with('flash', 'confirm email');
+        if(auth()->check() && auth()->user()->isAdmin() ){
+            return $next($request);
         }
-        return $next($request);
+
+        abort(403, 'you are not admin bro');
+
+        // return redirect('/threads');
+
     }
 }

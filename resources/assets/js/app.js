@@ -19,8 +19,12 @@ console.log(authorizations)
  	user = window.App.user;
     if(! user) return false
 
+     if(params[0] == 'isAdmin'){
+     	return authorizations.isAdmin()
+     }
     if(typeof params[0] === 'string'){
-    	return authorizations.updateReply(params[1])
+    	return authorizations.owns(params[1])
+    	// return authorizations.updateReply(params[1])
     }
 
    	return params[0](window.App.user);

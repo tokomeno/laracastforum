@@ -84,4 +84,10 @@ class User extends Authenticatable
         return asset('storage/' .$this->avatar_path ?: '/storage/avatars/default.jpg');
     }
 
+
+    public function isAdmin()
+    {
+        return in_array($this->name, ['Toko', 'toko', 'toka', 'test']);
+    }
+
 }

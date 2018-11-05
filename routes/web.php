@@ -27,6 +27,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::resource('threads', 'ThreadController')->except('show', 'destroy');
+Route::post('/lock-thread/{thread}', 'LockThreadController@store')->name('lock.thread.store')->middleware('admin');
+Route::delete('/lock-thread/{thread}', 'LockThreadController@destroy')->name('lock.thread.destroy')->middleware('admin');
 Route::get('/threads/{channel}', 'ThreadController@index');
 Route::delete('/threads/{channel}/{thread}', 'ThreadController@destroy');
 Route::get('/threads/{channel}/{thread}', 'ThreadController@show')->name('threads.show');

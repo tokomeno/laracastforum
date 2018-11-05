@@ -36,6 +36,7 @@ class ReplyController extends Controller
         // if(Gate::denies('create', new Reply)){
         //   return response('To much replies bro :)', 422);
         // }
+        if($thread->locked) return response('Thread is locked', 422);
         $reply = $thread->addReply([
          'body' => request('body'),
          'user_id' => auth()->id()

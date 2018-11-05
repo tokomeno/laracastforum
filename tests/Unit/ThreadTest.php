@@ -176,4 +176,15 @@ class ThreadTest extends TestCase
         return $this->post('/threads', $thread->toArray());
     }
 
+
+    /** @test */
+    public function a_thread_may_be_locked()
+    {
+        $this->assertFalse($this->thread->locked, false);
+
+        $this->thread->lock();
+
+        $this->assertEquals($this->thread->locked, true);
+    }
+
 }

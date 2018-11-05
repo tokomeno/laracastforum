@@ -30,14 +30,14 @@
     </div>
 
 <!-- @can('update', $reply) -->
-      <div class="card-footer justify-content-start">
+      <div class="card-footer justify-content-start" v-if="authorize('owns', reply) || authorize('owns', thread)">
         <!-- <div  v-if="canUpdate"> -->
-        <div  v-if="authorize('updateReply', reply)">
+        <div  v-if="authorize('owns', reply)">
             <button @click="destroy" class="btn btn-sm btn-danger">Delete</button>
             <button class="btn btn-sm" @click="editing = true">Edit</button>
         </div>
 
-         <button class="btn btn-sm btn-info ml-auto" @click="markBestReply" >Best Reply</button>
+         <button v-if=" authorize('owns', thread)" class="btn btn-sm btn-info ml-auto" @click="markBestReply" >Best Reply</button>
       </div>
     <!-- @endcan -->
 
@@ -58,6 +58,7 @@
                 editing: false,
                 body:this.data.body,
                 isBest: this.data.isBest,
+                thread: this.data.thread
             }
         },
         created(){

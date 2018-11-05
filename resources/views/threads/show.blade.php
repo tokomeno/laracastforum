@@ -2,7 +2,7 @@
 
 @section('content')
 {{$thread->replies->count()}}
-<thread-view inline-template :proprepliescount="{{$thread->replies_count}}">
+<thread-view inline-template :thread="{{$thread}}" data_locked="{{$thread->locked}}" :proprepliescount="{{$thread->replies_count}}">
   <div class="container">
       <div class="row">
           <div class="col-md-8">
@@ -54,6 +54,9 @@
 
             <sub-btn :propactive="{{$thread->isSubscribedTo ? 'true' : 'false'}}"></sub-btn>
              {{-- <sub-btn :propactive="{{$thread->isSubscribedTo}}"></sub-btn> --}}
+
+
+            <button class="btn" :class="locked == true ? 'btn-danger' : 'btn-info'" v-if="authorize('isAdmin')" @click="lock">Lock</button>
 
 
     </div>
