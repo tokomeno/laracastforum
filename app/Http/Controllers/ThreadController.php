@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Rules\Spamfree;
+use App\Rules\Recaptcha;
 use App\Thread;
 use App\Trending;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+
 class ThreadController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth')->only('store', 'create', 'destroy');
+        $this->middleware('auth')->only('store', 'create', 'destroy', 'update');
         $this->middleware('must-be-confirmed')->only('store');
     }
     /**
@@ -62,14 +64,14 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Recaptcha $recaptcha)
     {
 
-
        $this->validate($request, [
-           'title' => ['required', new Spamfree],
+            'title' => ['required', new Spamfree],
             'body' => ['required', new Spamfree],
             'channel_id' => 'required|exists:channels,id',
+            'g-recaptcha-response' => [ $recaptcha ]
        ]);
 
         $thread = Thread::create([
@@ -128,6 +130,14 @@ class ThreadController extends Controller
     public function update($channel, Thread $thread, Request $request)
     {
 
+        $this->authorize('update', $thread);
+
+       $request->validate([
+            'title' => ['required', new Spamfree],
+            'body' => ['required', new Spamfree]
+       ]);
+
+        $thread->update($request->only('body', 'title'));
     }
 
     /**

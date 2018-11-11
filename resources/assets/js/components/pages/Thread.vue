@@ -6,6 +6,7 @@ export default {
     components:{
         'replies' : replies,
         'sub-btn': sub,
+        'editing' : false,
     },
     data(){
         return {

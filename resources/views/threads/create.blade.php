@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('head')
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -33,6 +37,8 @@
                       </div>
 
                       <button type='submit' class="btn">Submit</button>
+                   <div class="g-recaptcha" data-sitekey="6LcIAHoUAAAAAL8VLfzae_AqUtvqgH7i8Ay0IYUX"></div>
+                     <p class="text-danger">{{$errors->first('g-recaptcha-response')}}</p>
                     </form>
                   </div>
 

@@ -231,5 +231,36 @@ class ThreadsTest extends TestCase
     }
 
 
+
+    /** @test */
+    public function a_thread_can_be_updated()
+    {
+        $this->signIn();
+        $thread = factory('App\Thread')->create(['user_id' => auth()->id()]);
+        $this->put($thread->path(), [
+            'title' => 'changed',
+            'body' => 'changed body'
+        ]);
+
+        $this->assertEquals($thread->fresh()->title, 'changed');
+        $this->assertEquals($thread->fresh()->body, 'changed body');
+
+    }
+
+
+    /** @test */
+    public function a_thread_cant_be_updated_by_other_user()
+    {
+         $thread = factory('App\Thread')->create(['user_id' => 22]);
+         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
+        $this->signIn();
+        $this->put($thread->path(), [
+            'title' => 'changed',
+            'body' => 'changed body'
+        ]);
+
+    }
+
+
 }
 

@@ -32,7 +32,7 @@
         ]) !!};
     </script>
 
-
+@yield('head')
 
    <style>
       [v-cloak]{ display: none; }

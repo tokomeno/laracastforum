@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Rules\Recaptcha;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,6 +22,13 @@ class ThreadTest extends TestCase
         parent::setUp();
         $this->thread = factory('App\Thread')->create();
 
+
+
+        app()->singleton(Recaptcha::class, function(){
+           return \Mockery::mock(Recaptcha::class, function($m){
+                $m->shoudRecieve('passes')->andReturn(true);
+            });
+        });
     }
     /** @test */
     public function a_thread_has_a_path()
@@ -171,7 +179,7 @@ class ThreadTest extends TestCase
     protected function publishThread($override = [])
     {
         $this->withExceptionHandling()->signIn();
-        $thread = factory('App\Thread')->create($override);
+        $thread = factory('App\Thread')->make($override);
 
         return $this->post('/threads', $thread->toArray());
     }
@@ -185,6 +193,20 @@ class ThreadTest extends TestCase
         $this->thread->lock();
 
         $this->assertEquals($this->thread->locked, true);
+    }
+
+
+
+
+    /** @test */
+    public function a_thread_requires_racaptcha()
+    {
+        // $this->withExceptionHandling();
+        $this->expectException(  \Illuminate\Validation\ValidationException::class);
+
+        unset(app()[Recaptcha::class]);
+        $this->publishThread(['g-recaptcha-response' => 'test']);
+        // ->assertSessionHas('g-recaptcha-response')
     }
 
 }
